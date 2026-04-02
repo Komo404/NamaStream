@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Streams Dashboard",
+  "name": "NamaStream",
   "author": "Komo404",
   "version": "1.0",
   "description": "Creates a Dashbard on a New tab, allowing the user to see if the channels they are subscribed to are online",
