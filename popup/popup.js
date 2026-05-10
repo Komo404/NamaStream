@@ -3,7 +3,7 @@
 // 
 
 const channelIDs = [
-  // Canais
+  // Coloque os canais aqui (mesmos IDs do backend)
   // Ex: {name: "nak", channelId: "UCfGiBuBA0H7FNbtP4LMP8-g"}
 ];
 
@@ -15,7 +15,7 @@ const backBtn = document.getElementById('back-btn');
 const title = document.getElementById('popup-title');
 
 const viewTitles = {
-    'view-default':  'Channels Dashboard',
+    'view-default':  'NamaStream Settings',
     'view-channels': 'Channels',
     'view-layout':   'Layout',
 };
