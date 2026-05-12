@@ -14,6 +14,7 @@ const views = document.querySelectorAll('.view');
 const backBtn = document.getElementById('back-btn');
 const title = document.getElementById('popup-title');
 
+
 const viewTitles = {
     'view-default':  'NamaStream Settings',
     'view-channels': 'Channels',
@@ -33,7 +34,7 @@ document.querySelectorAll('#view-default .check-row input').forEach(checkbox => 
 });
 
 
-// ============ GRID CANAIS
+// ============ GRID CANAIS ============
 
 function renderChannelGrid() {
     const grid = document.getElementById('yt-channel-grid');
@@ -88,7 +89,7 @@ function renderChannelGrid() {
     });
 }
 
-// ============ SORT BY BRANCH
+// ============ SORT BY BRANCH ============
 
 const sortToggle = document.getElementById('sort-by-branch');
 sortToggle.addEventListener('click', () => {
@@ -97,9 +98,10 @@ sortToggle.addEventListener('click', () => {
     // TODO: salvar no chrome.storage e aplicar na newtab
 });
 
-// ============ OPÇÕES DE LAYOUT
+// ============ OPÇÕES DE LAYOUT ============
 
 const layoutCheckboxes = document.querySelectorAll('#view-layout .check-row input');
+const repositionBtn = document.getElementById('reposition-mode-btn');
 
 layoutCheckboxes.forEach(checkbox => {
     checkbox.addEventListener('change', () => {
@@ -107,7 +109,15 @@ layoutCheckboxes.forEach(checkbox => {
     });
 });
 
-// ============ PADRÃO DO POPUP
+repositionBtn.addEventListener('click', () => {
+    chrome.storage.local.get('repositionMode', (result) => {
+        const next = !result.repositionMode;
+        chrome.storage.local.set({ repositionMode: next });
+        repositionBtn.classList.toggle('active', next);
+    });
+});
+
+// ============ PADRÃO DO POPUP ============
 
 function renderPage(viewId) {
     views.forEach(view => view.classList.remove('active'));
@@ -128,14 +138,19 @@ document.getElementById('close-btn').addEventListener('click', () => window.clos
 document.addEventListener('DOMContentLoaded', () => {
     renderPage('view-default');
 
-    chrome.storage.local.get(['layout-vertical-twitch', 'layout-firefox-logo', 'layout-firefox-wordmark', 'layout-search-bar', 'layout-fixed-bar', 'layout-resizable-bar'], (result) => {
+    chrome.storage.local.get(['layout-vertical-twitch', 'layout-firefox-logo', 'layout-firefox-wordmark', 'layout-search-bar', 'layout-resizable-bar'], (result) => {
         document.getElementById('layout-firefox-logo').checked = result['layout-firefox-logo'] ?? true;
         document.getElementById('layout-firefox-wordmark').checked = result['layout-firefox-wordmark'] ?? true;
         document.getElementById('layout-search-bar').checked = result['layout-search-bar'] ?? true;
         document.getElementById('layout-vertical-twitch').checked = result['layout-vertical-twitch'] || false;
-        document.getElementById('layout-fixed-bar').checked = result['layout-fixed-bar'] ?? true;
         document.getElementById('layout-resizable-bar').checked = result['layout-resizable-bar'] || false;
     });
+
+    chrome.storage.local.get('repositionMode', (result) => {
+        repositionBtn.classList.toggle('active', result.repositionMode === true);
+        repositionBtn.textContent = result.repositionMode ? 'Done Repositioning' : 'Reposition Bars';
+    });
+
 
     chrome.storage.local.get(['disabledChannels', 'pinnedChannels'], (result) => {
         disabledChannels = new Set(result.disabledChannels || []);
@@ -143,5 +158,12 @@ document.addEventListener('DOMContentLoaded', () => {
         renderChannelGrid();
         changeLayoutPreview();
     });
-    
+
+    document.getElementById('reset-bar-positions').addEventListener('click', () => {
+        chrome.storage.local.set({ barPositions: {} });
+    });
+
+    document.getElementById('reset-bar-sizes').addEventListener('click', () => {
+        chrome.storage.local.set({ barSizes: {} });
+    });
 });
