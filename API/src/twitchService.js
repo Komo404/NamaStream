@@ -3,7 +3,7 @@
 //
 
 const channels = [
-    // Coloque os canais aqui
+    // Coloque os canais aqui (nome de usuário)
     {name: "robcdee"}
 ]
 
