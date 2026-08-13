@@ -46,7 +46,10 @@
 - [x] Twitch channel disable/pin (V1.3.1)
 - [x] Wallpaper Site Integration (V1.3.1)
 - [x] Vertical Twitch bar layout (v1.3.2)
-- [ ] Live preview on thumbnail hover
+- [x] Live preview on thumbnail hover (v1.3.3)
+- [x] Better Architecture (v1.3.4)
+- [ ] Mobile Support
+- [ ] Hovering iFrame variables
 
 ## Stacks
 
