@@ -1,4 +1,4 @@
-import { saveBarPosition } from "./bar-positioning.js";
+import { saveBarPosition } from "./positioning.js";
 
 export function makeDraggable(bar) {
     let isDragging = false;

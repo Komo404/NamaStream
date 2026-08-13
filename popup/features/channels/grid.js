@@ -1,15 +1,30 @@
-export let disabledChannels = new Set();
-export let pinnedChannels = [];
+import { disabledChannels, pinnedChannels, saveDisabledChannels, savePinnedChannels } from "./data.js";
 
 export function renderChannelGrid(ids, channelgridID) 
 {
+    console.log("renderChannelGrid:", channelgridID);
+    console.log("ids:", ids);
+
     const grid = document.getElementById(channelgridID);
+
+    console.log("grid encontrado:", grid);
+
+    if (!grid) {
+        console.error(`GRID #${channelgridID} NÃO ENCONTRADA`);
+        return;
+    }
+
     grid.innerHTML = "";
 
     ids.forEach(channel => {
+        console.log("criando:", channel.name);
+
         const card = document.createElement("div");
         card.className = "channel-card";
-        if (disabledChannels.has(channel.channelId)) card.classList.add("disabled");
+
+        if (disabledChannels.has(channel.channelId)) {
+            card.classList.add("disabled");
+        }
 
         const avatar = document.createElement("div");
         avatar.className = "ch-avatar";
@@ -22,6 +37,7 @@ export function renderChannelGrid(ids, channelgridID)
         card.appendChild(name);
 
         const pinIndex = pinnedChannels.indexOf(channel.channelId);
+
         if (pinIndex !== -1) {
             const badge = document.createElement("span");
             badge.className = "pin-badge";
@@ -35,22 +51,28 @@ export function renderChannelGrid(ids, channelgridID)
             } else {
                 disabledChannels.add(channel.channelId);
             }
+
             renderChannelGrid(ids, channelgridID);
-            chrome.storage.local.set({ disabledChannels: Array.from(disabledChannels) });
+            saveDisabledChannels();
         });
 
-        card.addEventListener("contextmenu", (e) => { // Botão direito -> pin
+        card.addEventListener("contextmenu", (e) => {
             e.preventDefault();
+
             const idx = pinnedChannels.indexOf(channel.channelId);
+
             if (idx !== -1) {
                 pinnedChannels.splice(idx, 1);
             } else {
                 pinnedChannels.push(channel.channelId);
             }
+
             renderChannelGrid(ids, channelgridID);
-            chrome.storage.local.set({ pinnedChannels });
+            savePinnedChannels();
         });
 
         grid.appendChild(card);
     });
+
+    console.log("grid final:", grid);
 }

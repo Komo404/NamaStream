@@ -1,5 +1,4 @@
-export async function saveBarPosition(id, x, y)
-{
+export async function saveBarPosition(id, x, y) {
     const result = await chrome.storage.local.get("barPositions");
     const barPositions = result.barPositions || {};
     barPositions[id] = { x, y };
@@ -7,8 +6,7 @@ export async function saveBarPosition(id, x, y)
     await chrome.storage.local.set({ barPositions });
 }
 
-export async function restoreBarPositions()
-{
+export async function restoreBarPositions() {
     const result = await chrome.storage.local.get("barPositions");
     const barPositions = result.barPositions || {};
 
@@ -23,8 +21,7 @@ export async function restoreBarPositions()
     });
 }
 
-export function saveRestoreBarSizes()
-{
+export function saveRestoreBarSizes() {
     const sizes = JSON.parse(localStorage.getItem("info-bar-sizes") || "{}");
 
     document.querySelectorAll(".info-bar").forEach((bar, index) => {

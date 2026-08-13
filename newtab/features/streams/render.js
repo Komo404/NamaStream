@@ -1,8 +1,6 @@
-import { youtube, agenda, twitch } from "./dom-refs.js";
-import { lang } from "./constants.js";
+import { lang } from "../../../shared/translations.js";
 
-export function renderStreams(HappeningStreams, ScheduledStreams, TwitchStreams)
-{
+export function renderStreams(YoutubeEl, AgendaEl, TwitchEl, HappeningStreams, ScheduledStreams, TwitchStreams) {
     let youtubeHTML = "";
     let agendaHTML = "";
     let twitchHTML = "";
@@ -100,7 +98,7 @@ export function renderStreams(HappeningStreams, ScheduledStreams, TwitchStreams)
         }
     })
 
-    youtube.innerHTML = youtubeHTML;
-    agenda.innerHTML = agendaHTML;
-    twitch.innerHTML = twitchHTML;
+    if (YoutubeEl) YoutubeEl.innerHTML = youtubeHTML;
+    if (AgendaEl) AgendaEl.innerHTML = agendaHTML;
+    if (TwitchEl) TwitchEl.innerHTML = twitchHTML;
 }
