@@ -5,15 +5,21 @@ import { bindStreamPreviews } from "./preview.js";
 export async function initStreams(domRefs) // domRefs: youtube, agenda e twitch
 {
     try {
-        console.time("Streams fetch");
-        const response = await fetch("https://namastream.migueloliv-dev.workers.dev/v3/youtube");
-        const twitchRes = await fetch("https://namastream.migueloliv-dev.workers.dev/v3/twitch");
-        console.timeEnd("Streams fetch");
+        const [response1, response2, twitchRes] = await Promise.all([
+            fetch("https://namastream.migueloliv-dev.workers.dev/v3/youtube/1"),
+            fetch("https://namastream.migueloliv-dev.workers.dev/v3/youtube/2"),
+            fetch("https://namastream.migueloliv-dev.workers.dev/v3/twitch")
+        ]);
 
-        const videosResponse = await response.json();
-        const twitchResponse = await twitchRes.json();
+        const [youtubeResponse1, youtubeResponse2, twitchResponse] = await Promise.all([
+            response1.json(),
+            response2.json(),
+            twitchRes.json()
+        ]);
 
-        const data = await filterStreams(videosResponse, twitchResponse);
+        const youtubeResponse = [...youtubeResponse1, ...youtubeResponse2];
+
+        const data = await filterStreams(youtubeResponse, twitchResponse);
         renderStreams(domRefs.youtube, domRefs.agenda, domRefs.twitch, data.HappeningStreams, data.ScheduledStreams, data.TwitchStreams);
 
         bindStreamPreviews([domRefs.youtube, domRefs.agenda, domRefs.twitch]);

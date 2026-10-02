@@ -29,7 +29,7 @@ export function bindStreamPreviews(containers = []) {
         }
 
         const iframe = document.createElement("iframe");
-        iframe.src = `https://m-erm.github.io/yt-proxy/?v=${videoId}`;
+        iframe.src = `https://komo404.github.io/yt-proxy/?v=${videoId}`;
         liveUniqueIframe = iframe;
 
         thumb.appendChild(iframe);
