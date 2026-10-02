@@ -1,5 +1,18 @@
 ## Changelog
 
+### 1.3.3 (v1.33)
+- Asobi Mawaritai
+- Removed batches (Now using Cloudflare Auto-queue)
+- Youtube separate endpoints (Double channel cappacity)
+- Update missing extensions host permissions
+- Update preview host name
+- Weather Auto button fix
+- Bar-positions and sizes now use shared storage
+- Resizing is restored when "Resizable Bars" is enabled
+- Disabling resize removes only width/height styles
+- Resetting positions no longer clears unrelated inline styles
+- Changed Cron time (6 min -> 1 hour)
+
 ### 1.3.2 (v1.32)
 - Twitch Vertical Layout
 - Youtube Iframe when hovering thumb card (min 5s hover)

@@ -66,7 +66,7 @@ export function bindWeatherEvents() {
         }, 300);
     });
 
-    document.getElementById("weatherAuto").addEventListener("click", () => {
+    document.getElementById("weatherAuto").addEventListener("click", async () => {
         document.getElementById("weatherLocationInput").value = "";
         weatherInfo.classList.remove("settings-open");
 
@@ -77,6 +77,7 @@ export function bindWeatherEvents() {
             name: null
         });
 
-        fetchWeather();
+        const res = await fetchWeather();
+        if (res) renderWeather(res.weatherData, res.geoData, res.manualName || null);
     });
 }

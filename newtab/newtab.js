@@ -3,6 +3,7 @@ import { initBars } from "./features/bars/init.js";
 import { initWeatherFeature } from "./features/weather/init.js";
 import { initWallpaperFeature } from "./features/wallpaper/init.js";
 import { getCachedSettings, applySettings, onChanged } from "../shared/settings-store.js";
+import { restoreBarPositions, restoreBarSizes } from "./features/bars/positioning.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -48,18 +49,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (changes["layout-resizable-bar"].newValue === false) {
                 document.querySelectorAll(".info-bar").forEach(bar => {
-                    bar.style.width = "";
-                    bar.style.height = "";
+                    bar.style.removeProperty("width");
+                    bar.style.removeProperty("height");
                 });
+            } else {
+                restoreBarSizes();
             }
         }
 
-        if (changes.barPositions && Object.keys(changes.barPositions.newValue || {}).length === 0) {
-            document.querySelectorAll(".info-bar").forEach(bar => {
-                bar.style = "";
-                bar.dataset.posX = "0";
-                bar.dataset.posY = "0";
-            });
+        if (changes.barPositions) {
+            restoreBarPositions();
         }
     });
 });

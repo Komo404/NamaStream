@@ -3,24 +3,24 @@
 //
 
 const channels = [
-    {name: "vedal987"}, 
-    {name: "ironmouse"}, 
-    {name: "henyathegenius"}, 
+    {name: "vedal987"},
+    {name: "ironmouse"},
+    {name: "sakuramiko_hololive"},
+    {name: "shirakamifubuki_holo"},
+    {name: "usadapekora_hololive"},
+    {name: "laplusdarknesss_hololive"},
     {name: "dooby3d"}, 
-    {name: "shachimu"}, 
-    {name: "dokibird"}, 
-    {name: "apricot"},
-    {name: "cerberVT"},  
-    {name: "filian"},
+    {name: "shachimu"},
+    {name: "dokibird"},
     {name: "kiara"},
     {name: "gigimurin"},
     {name: "FUWAMOCO"},
-    {name: "michimochievee"},
+    {name: "cecilia"},
     {name: "nyanners"},
-    {name: "chibidoki"},
+    {name: "kosekibijou"},
     {name: "RAORA"},
     {name: "elizabethrosebloodflame"},
-    {name: "kairyucrocodile"},
+    {name: "moricalliope"},
     {name: "tokoyamitowa_holo"}
 ]
 
