@@ -3,7 +3,7 @@
 //
 
 const channels = [
-    // Coloque os canais aqui (nome de usuário)
+    // Add your channels here (Twitch username)
     {name: "robcdee"}
 ]
 

@@ -1,10 +1,17 @@
 export async function fetchWeather() {
-    navigator.geolocation.getCurrentPosition(async (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
+    try {
+        const position = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
 
-        fetchWeatherFromCoords(lat, lon);
-    });
+        return fetchWeatherFromCoords(
+            position.coords.latitude,
+            position.coords.longitude
+        );
+    } catch (err) {
+        console.warn("Geolocation failed", err);
+        return null;
+    }
 }
 
 export async function fetchWeatherFromCoords(lat, lon, manualName = null) {

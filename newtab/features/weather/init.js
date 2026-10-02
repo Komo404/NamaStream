@@ -16,12 +16,7 @@ export async function initWeatherFeature() {
         const res = await fetchWeatherFromCoords(saved.lat, saved.lon, saved.name);
         if (res) renderWeather(res.weatherData, res.geoData, res.manualName);
     } else {
-        // try to get posição atual -> fetchWeather vai pegar localização
-        navigator.geolocation.getCurrentPosition(async (position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            const res = await fetchWeatherFromCoords(lat, lon);
-            if (res) renderWeather(res.weatherData, res.geoData, res.manualName || null);
-        }, (err) => { console.warn('Geolocation failed', err); });
+        const res = await fetchWeather();
+        if (res) renderWeather(res.weatherData, res.geoData, res.manualName || null);
     }
 }

@@ -4,8 +4,8 @@
 // ==========================================
 
 const channelIDs = [
-  // Coloque os canais aqui
-  // Ex: {name: "nak", channelId: "UCfGiBuBA0H7FNbtP4LMP8-g"}
+  // Add your channels here
+  // Example: {name: "nak", channelId: "UCfGiBuBA0H7FNbtP4LMP8-g"}
 ]
 
 const playlistIDs = channelIDs.map( ({ channelId }) => `UU${ channelId.slice(2) }`);
@@ -17,42 +17,42 @@ export async function getYoutubeStreams(YOUTUBE_API_KEY)
   return streams; 
 }
 
-async function getYoutubeContent(playlistIDs, YOUTUBE_API_KEY) {
-  const playlists = [];
+async function getYoutubeContent(playlistIDs, YOUTUBE_API_KEY) 
+{
+  const fetchPlaylist = async (playlistId) => { // arrow function que retorna uma Promise e playlistId é um parâmetro da função
+    const params = new URLSearchParams({
+      part: "snippet",
+      fields: "items(snippet(resourceId/videoId))",
+      playlistId,
+      maxResults: "3",
+      key: YOUTUBE_API_KEY,
+    });
 
-  for (let i = 0; i < playlistIDs.length; i += 6) {
-    const batch = playlistIDs.slice(i, i + 6);
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?${params}`;
 
-    const chunk = await Promise.all(
-      batch.map(async (playlistId) => {
+    try {
+      const response = await fetch(url);
 
-        const url = `https://www.googleapis.com/youtube/v3/playlistItems` + `?part=snippet` +
-        `&fields=items(snippet(resourceId/videoId))` +
-        `&playlistId=${playlistId}&maxResults=3&key=${YOUTUBE_API_KEY}`;
+      if (!response.ok) {
+        throw new Error(`YouTube API returned ${response.status} for playlist "${playlistId}"`);
+      }
 
-        try {
-          const res = await fetch(url);
+      return await response.json();
 
-          if (!res.ok) {
-            console.error("YT API error:", playlistId, res.status);
-            return null;
-          }
+    } catch (error) {
+      console.error(
+        `Failed to fetch "${playlistId}":`, error
+      );
 
-          return res.json();
-        } catch (e) {
-          console.error("Fetch error:", playlistId, e.message);
-          return null;
-        }
-      })
-    );
-
-    for (const playlist of chunk) {
-      if (playlist) 
-        playlists.push(playlist);
+      return null;
     }
-  }
+  };
 
-  return playlists;
+  const data = await Promise.all(
+    playlistIDs.map(fetchPlaylist)
+  );
+
+  return data.filter(Boolean); // Remove as playlists que falharam
 }
 
 async function getVideoInfo(data, YOUTUBE_API_KEY) {
