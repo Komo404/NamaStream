@@ -1,12 +1,15 @@
 //
-// Handler do server. Hono é o framework para facilitar fazer o server >D
+// Handler do server. Hono é o framework para facilitar fazer o server 
 //
 
 import { Hono } from 'hono';
 import { returnYoutubeData } from './cache.js';
+import { returnYoutubeData2 } from './cache.js';
 import { returnTwitchData } from './cache.js';
 import { returnWallhavenData } from './wallhavenService.js';
-import { refreshCache } from './cache.js';
+import { refreshYoutubeCache } from './cache.js';
+import { refreshYoutubeCache2 } from './cache.js';
+import { refreshTwitchCache } from './cache.js';
 
 interface Env {
   YOUTUBE_API_KEY: string;
@@ -27,11 +30,41 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': '*',
 };
 
-server.get('/v3/youtube', async (context) => {
+server.get('/v3/youtube/1', async (context) => {
   try {
-    const data = await returnYoutubeData(context.env);
+    let cache = await returnYoutubeData(context.env);
 
-    return context.json(data ?? [], { headers: corsHeaders });
+    if (Date.now() - cache.timestamp > 1000 * 60 * 1.5) {
+      const data = await refreshYoutubeCache(context.env.YOUTUBE_API_KEY, context.env);
+      return context.json(data, { headers: corsHeaders });
+    }
+
+    return context.json(cache.data, { headers: corsHeaders });
+
+  } catch (err: any) {
+    return context.json(
+      {
+        error: 'Internal Server Error',
+        message: err?.message ?? 'Unknown error',
+      },
+      { status: 500, headers: corsHeaders }
+    );
+  }
+});
+
+
+server.get('/v3/youtube/2', async (context) => {
+  try {
+    let cache = await returnYoutubeData2(context.env);
+
+    if (Date.now() - cache.timestamp > 1000 * 60 * 1.5) {
+      const data = await refreshYoutubeCache2(context.env.YOUTUBE_API_KEY, context.env);
+
+      return context.json(data, { headers: corsHeaders });
+    }
+
+    return context.json(cache.data, { headers: corsHeaders });
+
   } catch (err: any) {
     return context.json(
       {
@@ -45,9 +78,20 @@ server.get('/v3/youtube', async (context) => {
 
 server.get('/v3/twitch', async (context) => {
   try {
-    const data = await returnTwitchData(context.env);
+    const cache = await returnTwitchData(context.env);
 
-    return context.json(data ?? [], { headers: corsHeaders });
+    if (Date.now() - cache.timestamp > 1000 * 60 * 1.5) {
+      const data = await refreshTwitchCache(
+        context.env.Client_Id,
+        context.env.Client_Secret,
+        context.env
+      );
+
+      return context.json(data, { headers: corsHeaders });
+    }
+
+    return context.json(cache.data ?? [], { headers: corsHeaders });
+    
   } catch (err: any) {
     return context.json(
       {
@@ -61,6 +105,7 @@ server.get('/v3/twitch', async (context) => {
 
 server.get('/v3/searchwallhaven', async (context) => {
   const query = context.req.query('q')?.trim();
+
   if (!query) {
     return context.json(
       {
@@ -94,17 +139,20 @@ server.options('*', (c) => {
 
 export default {
   fetch: server.fetch,
-  
+
   scheduled: async (
     controller: ScheduledController,
     env: Env,
     ctx: ExecutionContext
   ) => {
-    console.log("Cron Disparou!");
-    ctx.waitUntil(
-      refreshCache(env.YOUTUBE_API_KEY, env.Client_Id, env.Client_Secret, env)
-      .then(() => console.log("Cache atualizado"))
-      .catch(err => console.error("Erro no cron:", err))
-    );
+    console.log("Cron disparou!");
+
+    await Promise.all([
+      fetch("https://namastream.migueloliv-dev.workers.dev/v3/youtube/1"),
+      fetch("https://namastream.migueloliv-dev.workers.dev/v3/youtube/2"),
+      fetch("https://namastream.migueloliv-dev.workers.dev/v3/twitch")
+    ]);
+
+    console.log("Refresh de cache solicitado pra todos os endpoints");
   }
-}
+};
