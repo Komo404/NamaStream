@@ -1,9 +1,21 @@
 ## Changelog
 
-### 1.3.3 (v1.33)
+### 1.3.4 (v1.34.0)
+- Bumped the extension version to 1.34.0.
+- Initialized bar interactions before network-dependent features.
+- Loaded streams, weather, and wallpaper setup concurrently.
+- Added request timeouts for geolocation and weather services.
+- Parallelized weather and reverse-geocoding requests.
+- Added lazy loading for stream and wallpaper-result images.
+- Deferred hidden wallpaper previews until the wallpaper modal opens.
+- Replaced the default 2.9 MB PNG background with an approximately 64 KB WebP asset.
+- Added stream response validation to surface API failures cleanly.
+- Updated the manifest description and host permissions.
+
+### 1.3.3 (v1.33.0)
 - Asobi Mawaritai
 - Removed batches (Now using Cloudflare Auto-queue)
-- Youtube separate endpoints (Double channel cappacity)
+- YouTube separate endpoints (double channel capacity)
 - Update missing extensions host permissions
 - Update preview host name
 - Weather Auto button fix
@@ -11,16 +23,16 @@
 - Resizing is restored when "Resizable Bars" is enabled
 - Disabling resize removes only width/height styles
 - Resetting positions no longer clears unrelated inline styles
-- Changed Cron time (6 min -> 1 hour)
+- Changed cron interval (6 minutes -> 7 minutes)
 
 ### 1.3.2 (v1.32)
 - Twitch Vertical Layout
-- Youtube Iframe when hovering thumb card (min 5s hover)
+- YouTube iframe when hovering a thumbnail (minimum 5 seconds)
 
 ### 1.3.1 (v1.31)
 - JS Modularization
 - Backend: Data Normalization + Usage of Fields on Youtube API -> ~30ms -> 7ms CPU TIME
-- Backend: Versionament -> V2/V3
+- Backend: API versioning -> V2/V3
 - Twitch POPUP channelgrid + disable/enable channels and pin working
 - Wallhaven Integration (Through extensions backend)
 

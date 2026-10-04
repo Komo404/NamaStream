@@ -1,12 +1,16 @@
-export function renderWallpaperSlots(wallpaperSlots) {
+export function renderWallpaperSlots(wallpaperSlots, { loadPreviews = true } = {}) {
     const slotEls = document.querySelectorAll(".slot");
 
     slotEls.forEach((el, index) => {
         const slot = wallpaperSlots[index];
 
         if (slot) {
-            el.style.backgroundImage = `url(${slot.data})`;
-            el.style.backgroundSize = "cover";
+            if (loadPreviews) {
+                el.style.backgroundImage = `url(${slot.data})`;
+                el.style.backgroundSize = "cover";
+            } else {
+                el.style.backgroundImage = "";
+            }
             el.classList.remove("empty");
         } else {
             el.style.backgroundImage = "";

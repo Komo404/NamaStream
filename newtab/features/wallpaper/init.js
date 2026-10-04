@@ -8,12 +8,13 @@ export async function initWallpaperFeature()
     let wallpaperSlots = await loadWallpapers();
 
     if (wallpaperSlots.length === 0) {
-        wallpaperSlots = [{ type: "url", data: "/assets/DefaultBackground.png" }];
+        wallpaperSlots = [{ type: "url", data: "/assets/DefaultBackground.webp" }];
         await chrome.storage.local.set({ wallpapers: wallpaperSlots });
     }
 
     window.__wallpaperSlots = wallpaperSlots;
-    renderWallpaperSlots(wallpaperSlots);
+    // The modal is hidden initially; defer loading its historical wallpapers.
+    renderWallpaperSlots(wallpaperSlots, { loadPreviews: false });
     bindSlotClicks(wallpaperSlots);
 
     if (wallpaperSlots[0]) {
@@ -65,6 +66,7 @@ export async function initWallpaperFeature()
     });
 
     document.getElementById("wallpaper-btn").addEventListener("click", () => {
+        renderWallpaperSlots(wallpaperSlots);
         document.getElementById("wallpaper-popup").classList.remove("hidden");
     });
 

@@ -28,11 +28,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     const settings = await getCachedSettings();
     applySettings(settings, { firefox_logo, firefox_wordmark, search_bar, barsSection, bars: barsList });
 
-    // Inicializa features
-    await initStreams({ youtube: youtubeContainer, agenda: agendaContainer, twitch: twitchContainer });
-    await initWeatherFeature();
-    await initWallpaperFeature();
+    // Initialize bar interactions before any network-dependent feature.
     await initBars({ bars: barsList });
+
+    // These features are independent and can load concurrently.
+    const featureInitialization = Promise.allSettled([
+        initStreams({ youtube: youtubeContainer, agenda: agendaContainer, twitch: twitchContainer }),
+        initWeatherFeature(),
+        initWallpaperFeature()
+    ]);
+
+    featureInitialization.then(results => results.forEach(result => {
+        if (result.status === "rejected") console.error("Feature initialization failed:", result.reason);
+    }));
 
     // Ouve mudanças de storage e reaplica elas quando mudam
     onChanged((changes, area) => {

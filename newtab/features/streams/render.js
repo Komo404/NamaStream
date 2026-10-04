@@ -10,7 +10,7 @@ export function renderStreams(YoutubeEl, AgendaEl, TwitchEl, HappeningStreams, S
             youtubeHTML += `
                 <div class="live">
                     <a href="https://www.youtube.com/watch?v=${stream.id}" target="_blank" class="live-thumb">
-                        <img src="${stream.thumbnailMax ?? stream.thumbnailHigh} " alt="Channel Pfp">
+                        <img src="${stream.thumbnailMax ?? stream.thumbnailHigh} " alt="Channel Pfp" loading="lazy" decoding="async" width="320" height="180">
                     </a>
                     <div class="live-info">
                         <div>
@@ -61,7 +61,7 @@ export function renderStreams(YoutubeEl, AgendaEl, TwitchEl, HappeningStreams, S
             agendaHTML += `
                 <div class="live">
                     <a href="https://www.youtube.com/watch?v=${stream.id}" target="_blank" class="live-thumb">
-                        <img src="${stream.thumbnailMax ?? stream.thumbnailHigh}" alt="Channel Pfp">
+                        <img src="${stream.thumbnailMax ?? stream.thumbnailHigh}" alt="Channel Pfp" loading="lazy" decoding="async" width="320" height="180">
                     </a>
                     <div class="live-info">
                         <div>
@@ -82,7 +82,7 @@ export function renderStreams(YoutubeEl, AgendaEl, TwitchEl, HappeningStreams, S
             twitchHTML += `
                 <div class="live">
                     <a href="https://www.twitch.tv/${stream.name}" target="_blank" class="live-thumb">
-                        <img src="${stream.thumbnail.replace("{width}", "320").replace("{height}", "180")}" alt="Channel Pfp">
+                        <img src="${stream.thumbnail.replace("{width}", "320").replace("{height}", "180")}" alt="Channel Pfp" loading="lazy" decoding="async" width="320" height="180">
                     </a>
                     <div class="live-info">
                         <div>

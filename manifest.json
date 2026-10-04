@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "NamaStream",
   "author": "Erm",
-  "version": "1.33.0",
-  "description": "Adds a VTuber stream dashboard to your new tabs, showing live and scheduled YouTube streams.",
+  "version": "1.34.0",
+  "description": "Adds a VTuber stream dashboard to new tabs with live streams, schedules, weather, and custom wallpapers.",
   "icons": {
     "32": "icon.png",
     "48": "icon48.png",

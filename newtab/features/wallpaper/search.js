@@ -20,6 +20,8 @@ export async function searchWallpapers(wallpaperSlots = []) {
         const img = document.createElement("img");
 
         img.src = wallpaper.thumbs.small;
+        img.loading = "lazy";
+        img.decoding = "async";
 
         img.addEventListener("click", async () => {
             const nextSlots = await saveWallpaper({ type: "url", data: wallpaper.path }, wallpaperSlots);
