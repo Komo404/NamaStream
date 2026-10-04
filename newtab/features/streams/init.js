@@ -12,9 +12,9 @@ export async function initStreams(domRefs) // domRefs: youtube, agenda e twitch
         ]);
 
         const [youtubeResponse1, youtubeResponse2, twitchResponse] = await Promise.all([
-            response1.json(),
-            response2.json(),
-            twitchRes.json()
+            parseResponse(response1),
+            parseResponse(response2),
+            parseResponse(twitchRes)
         ]);
 
         const youtubeResponse = [...youtubeResponse1, ...youtubeResponse2];
@@ -27,4 +27,9 @@ export async function initStreams(domRefs) // domRefs: youtube, agenda e twitch
     } catch (err) {
         console.error("Erro ao carregar streams:", err);
     }
+}
+
+async function parseResponse(response) {
+    if (!response.ok) throw new Error(`Streams API HTTP ${response.status}`);
+    return response.json();
 }
