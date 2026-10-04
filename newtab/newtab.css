@@ -1,6 +1,6 @@
 
 :root { /* Define a CSS variable for the wallpaper URL */
-    --wallpaper-url: url("/assets/DefaultBackground.png");
+    --wallpaper-url: url("/assets/DefaultBackground.webp");
 }
 
 html, body {

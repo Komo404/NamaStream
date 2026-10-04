@@ -26,7 +26,7 @@
 
 ### Architecture highlights
 
-- Backend on **Cloudflare Workers** (Hono + TypeScript) with a Cron Trigger that refreshes the cache every 6 minutes, decreasing cold-start (~5000ms -> 500ms)
+- Backend on **Cloudflare Workers** (Hono + TypeScript), with separate cached YouTube endpoints and a Twitch endpoint
 - Chunked parallel fetching to stay within Cloudflare's free plan simultaneous connection limit
 - Data Normalization to reduce CPU Time (~30ms -> ~7ms)
 - Integration with 5+ different APIs
@@ -49,9 +49,9 @@
 - [x] Wallpaper Site Integration (V1.3.1)
 - [x] Vertical Twitch bar layout (v1.3.2)
 - [x] Live preview on thumbnail hover (v1.3.3)
-- [x] Better Architecture (v1.3.4)
+- [x] Client startup and asset-loading optimizations (v1.3.4)
 - [ ] Mobile Support
-- [ ] Hovering iFrame variables
+- [ ] Configurable hover-preview behavior
 
 ## Stacks
 
@@ -60,7 +60,7 @@
 | Extension | HTML · CSS · Vanilla JS |
 | Backend | Cloudflare Workers · Hono · TypeScript |
 | Cache | Cloudflare KV |
-| APIs | YouTube Data API v3 · Twitch API · Open-Meteo · Nominatim |
+| APIs | YouTube Data API v3 · Twitch API · Wallhaven · Open-Meteo · Nominatim |
 
 ---
 
@@ -80,7 +80,7 @@
 git clone https://github.com/komo404/NamaStream.git
 cd NamaStream
 
-cd worker
+cd API
 npm install
 
 # Store secrets: never committed to the repo
@@ -93,7 +93,7 @@ wrangler secret put Client_Secret
 
 ```bash
 # Worker dev server
-cd worker
+cd API
 wrangler dev --test-scheduled
 
 # To test the Cron Trigger locally:
@@ -115,16 +115,21 @@ This extension uses the [YouTube Data API v3](https://developers.youtube.com/you
 ### Twitch API
 This extension uses the [Twitch API](https://dev.twitch.tv/docs/api/). By using NamaStream, you agree to the [Twitch Developer Agreement](https://legal.twitch.com/legal/developer-agreement/).
 
+### Wallpaper and weather services
+Wallpaper search uses [Wallhaven](https://wallhaven.cc/). Weather data uses [Open-Meteo](https://open-meteo.com/), and automatic location names use [Nominatim](https://nominatim.org/) from OpenStreetMap. The stream hover preview uses the configured preview proxy shown in `newtab/features/streams/preview.js`.
+
 ---
 
 ## Documentation
 
+- [API documentation](./API/README.md)
 - [Privacy Policy](./PRIVACY.md)
 - [Changelog](./CHANGELOG.md)
 - [License](./LICENSE)
 
 ---
 *NamaStream is an independent project not affiliated with or endorsed by YouTube, Twitch, Google, or OpenStreetMap.*
+
 
 ## Channel setup
 
