@@ -3,7 +3,7 @@
 // ==========================================
 
 const channelIDs = [
-  // Add more channels here
+  // Add more channels here (use the channel ID, not the @handle)
   // Example: {name: "nak", channelId: "UCfGiBuBA0H7FNbtP4LMP8-g"}
 ]
 
