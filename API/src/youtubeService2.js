@@ -23,6 +23,7 @@ const channelIDs = [
   {name: "Kyoko", channelId: "UCSjQDxud2HkAO2DVD3lwxmw"},
   {name: "Subaru", channelId: "UCvzGlP9oQwU--Y0r9id_jnA"},
   {name: "Anya", channelId: "UC727SQYUvx5pDDGQpTICNWg"},
+  {name: "Fubuki", channelId: "UCdn5BQ06XqgXoAxIhbqw5Rg"}
 ]
 
 const playlistIDs = channelIDs.map( ({ channelId }) => `UU${ channelId.slice(2) }`);
