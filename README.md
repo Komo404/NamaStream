@@ -5,7 +5,6 @@
 ![License](https://img.shields.io/github/license/komo404/namastream)
 ![Firefox Add-on](https://img.shields.io/badge/Firefox-Add--on-FF7139?logo=firefox-browser&logoColor=white)
 ![Cloudflare Workers](https://img.shields.io/badge/Backend-Cloudflare%20Workers-F38020?logo=cloudflare&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
 
 ---
 
@@ -26,8 +25,8 @@
 
 ### Architecture highlights
 
-- Backend on **Cloudflare Workers** (Hono + TypeScript), with separate cached YouTube endpoints and a Twitch endpoint
-- Chunked parallel fetching to stay within Cloudflare's free plan simultaneous connection limit
+- Backend on **Cloudflare Workers** (Hono + JavaScript), with separately cached YouTube endpoints and a Twitch endpoint
+- Parallel YouTube requests use separate endpoints to stay within per-request Workers Free limits and improve concurrency for large channel lists
 - Data Normalization to reduce CPU Time (~30ms -> ~7ms)
 - Integration with 5+ different APIs
 - Client-side stream filtering and sorting, reducing server processing
@@ -58,7 +57,7 @@
 | Layer | Tech |
 |---|---|
 | Extension | HTML · CSS · Vanilla JS |
-| Backend | Cloudflare Workers · Hono · TypeScript |
+| Backend | Cloudflare Workers · Hono · JavaScript |
 | Cache | Cloudflare KV |
 | APIs | YouTube Data API v3 · Twitch API · Wallhaven · Open-Meteo · Nominatim |
 
@@ -92,12 +91,9 @@ wrangler secret put Client_Secret
 ### Running locally
 
 ```bash
-# Worker dev server
+# Start the Worker dev server (the scheduled refresh is disabled)
 cd API
-wrangler dev --test-scheduled
-
-# To test the Cron Trigger locally:
-curl "http://localhost:8787/__scheduled"
+npm run dev
 ```
 
 To load the extension in Firefox:
@@ -133,7 +129,8 @@ Wallpaper search uses [Wallhaven](https://wallhaven.cc/). Weather data uses [Ope
 
 ## Channel setup
 
-- Add your channels to the backend and popup lists
-- YouTube starts empty, uncomment the example to try it
-- On versions with Twitch support, robcdee is the example channel. Replace it with your own, but don't leave the list empty or it will fetch streams without a channel filter
+- Copy `API/src/channels_example.js` to `API/src/channels_local.js` and export `channelIDs` and `channelIDs2` from that file. The second list is optional; use it when you want to split a large YouTube channel list across both endpoints.
+- Add YouTube channels to either list using their channel IDs. The extension calls both endpoints, so leave `channelIDs2` empty when using only the first group.
+- Set Twitch usernames in `API/src/twitchService.js`.
+- Add your channels to the popup list if you want per-channel enable, disable, and pin controls.
 - Deploy your Worker and update the URLs and host permissions

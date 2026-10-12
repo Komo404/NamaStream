@@ -36,7 +36,7 @@ export async function returnTwitchData(env)
 {
     const result = await env.STREAMS_KV.getWithMetadata("twitch:v3", {
         type: "json",
-        cacheTtl: 30
+        cacheTtl: 30 // cache time to live, evita que o KV seja consultado em excesso
     });
 
     return {

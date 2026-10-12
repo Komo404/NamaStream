@@ -11,18 +11,7 @@ import { refreshYoutubeCache } from './cache.js';
 import { refreshYoutubeCache2 } from './cache.js';
 import { refreshTwitchCache } from './cache.js';
 
-interface Env {
-  YOUTUBE_API_KEY: string;
-  Client_Id: string;
-  Client_Secret: string;
-}
-
-import type {
-  ScheduledController,
-  ExecutionContext
-} from "@cloudflare/workers-types";
-
-const server = new Hono<{ Bindings: Env }>();
+const server = new Hono();
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*', // faz com que permita qualquer origem
@@ -32,16 +21,15 @@ const corsHeaders = {
 
 server.get('/v3/youtube/1', async (context) => {
   try {
-    let cache = await returnYoutubeData(context.env);
+    const cache = await returnYoutubeData(context.env);
 
-    if (Date.now() - cache.timestamp > 1000 * 60 * 1.5) {
+    if (Date.now() - cache.timestamp > 1000 * 60 * 3) {
       const data = await refreshYoutubeCache(context.env.YOUTUBE_API_KEY, context.env);
       return context.json(data, { headers: corsHeaders });
     }
 
     return context.json(cache.data, { headers: corsHeaders });
-
-  } catch (err: any) {
+  } catch (err) {
     return context.json(
       {
         error: 'Internal Server Error',
@@ -52,20 +40,17 @@ server.get('/v3/youtube/1', async (context) => {
   }
 });
 
-
 server.get('/v3/youtube/2', async (context) => {
   try {
-    let cache = await returnYoutubeData2(context.env);
+    const cache = await returnYoutubeData2(context.env);
 
-    if (Date.now() - cache.timestamp > 1000 * 60 * 1.5) {
+    if (Date.now() - cache.timestamp > 1000 * 60 * 3) {
       const data = await refreshYoutubeCache2(context.env.YOUTUBE_API_KEY, context.env);
-
       return context.json(data, { headers: corsHeaders });
     }
 
     return context.json(cache.data, { headers: corsHeaders });
-
-  } catch (err: any) {
+  } catch (err) {
     return context.json(
       {
         error: 'Internal Server Error',
@@ -91,8 +76,7 @@ server.get('/v3/twitch', async (context) => {
     }
 
     return context.json(cache.data ?? [], { headers: corsHeaders });
-    
-  } catch (err: any) {
+  } catch (err) {
     return context.json(
       {
         error: 'Internal Server Error',
@@ -117,11 +101,9 @@ server.get('/v3/searchwallhaven', async (context) => {
   }
 
   try {
-    
     const data = await returnWallhavenData(query);
     return context.json(data, { headers: corsHeaders });
-
-  } catch (err: any) {
+  } catch (err) {
     return context.json(
       {
         error: 'Internal Server Error',
@@ -132,27 +114,22 @@ server.get('/v3/searchwallhaven', async (context) => {
   }
 });
 
-// requisição options (faz automático antes/junto de um fetch) AKA preflight request para lidar com CORS, tem que ter uma resposta 200 e os headers de CORS pra funcionar
-server.options('*', (c) => {
-    return c.text('ok', { headers: corsHeaders });
+server.options('*', (c) => { // Handle CORS preflight requests
+  return c.text('ok', { headers: corsHeaders });
 });
 
 export default {
   fetch: server.fetch,
 
-  scheduled: async (
-    controller: ScheduledController,
-    env: Env,
-    ctx: ExecutionContext
-  ) => {
-    console.log("Cron disparou!");
+  // scheduled: async (controller, env, ctx) => {
+  //   console.log('Cron disparou!');
 
-    await Promise.all([
-      fetch("https://namastream.migueloliv-dev.workers.dev/v3/youtube/1"),
-      fetch("https://namastream.migueloliv-dev.workers.dev/v3/youtube/2"),
-      fetch("https://namastream.migueloliv-dev.workers.dev/v3/twitch")
-    ]);
+  //   await Promise.all([
+  //     refreshYoutubeCache(env.YOUTUBE_API_KEY, env),
+  //     refreshYoutubeCache2(env.YOUTUBE_API_KEY, env),
+  //     refreshTwitchCache(env.Client_Id, env.Client_Secret, env),
+  //   ]);
 
-    console.log("Refresh de cache solicitado pra todos os endpoints");
-  }
+  //   console.log('Refresh de cache solicitado pra todos os endpoints');
+  // }
 };

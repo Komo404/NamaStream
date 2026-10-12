@@ -5,7 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "namastream",
-	"main": "src/index.ts",
+	"main": "src/index.js",
 	"compatibility_date": "2026-03-17",
 	"observability": {
 		"enabled": true
@@ -21,9 +21,9 @@
 			"remote": true
 		}
 	],
-	"triggers": {
-		"crons": ["*/7 * * * *"]
-	}
+	// "triggers": {
+	// 	"crons": ["*/20 * * * *"]
+	// }
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

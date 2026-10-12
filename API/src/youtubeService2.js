@@ -2,12 +2,9 @@
 // YouTube Service 2 pra dividir as requests de 50 em 2 e pra não dar erro de limite de requisições
 // ==========================================
 
-const channelIDs = [
-  // Add more channels here (use the channel ID, not the @handle)
-  // Example: {name: "nak", channelId: "UCfGiBuBA0H7FNbtP4LMP8-g"}
-]
+import { channelIDs2 } from './channels_local.js';
 
-const playlistIDs = channelIDs.map( ({ channelId }) => `UU${ channelId.slice(2) }`);
+const playlistIDs = channelIDs2.map( ({ channelId }) => `UU${ channelId.slice(2) }`);
 
 export async function getYoutubeStreams(YOUTUBE_API_KEY) 
 { 

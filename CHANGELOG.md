@@ -1,5 +1,10 @@
 ## Changelog
 
+### 1.35.0
+- Converted the backend Worker entry point to JavaScript.
+- Increased YouTube cache freshness to 3 minutes and disabled scheduled refresh.
+- Added a local, Git-ignored configuration path for YouTube channel groups.
+
 ### 1.3.4 (v1.34.0)
 - Bumped the extension version to 1.34.0.
 - Initialized bar interactions before network-dependent features.

@@ -3,10 +3,7 @@
 // 2. Pega as informações de cada vídeo (getVideoInfo)
 // ==========================================
 
-const channelIDs = [
-  // Add your channels here
-  // Example: {name: "nak", channelId: "UCfGiBuBA0H7FNbtP4LMP8-g"}
-]
+import { channelIDs } from './channels_local.js';
 
 const playlistIDs = channelIDs.map( ({ channelId }) => `UU${ channelId.slice(2) }`);
 
@@ -19,7 +16,7 @@ export async function getYoutubeStreams(YOUTUBE_API_KEY)
 
 async function getYoutubeContent(playlistIDs, YOUTUBE_API_KEY) 
 {
-  const fetchPlaylist = async (playlistId) => { // arrow function que retorna uma Promise e playlistId é um parâmetro da função
+  const fetchPlaylist = async (playlistId) => { // Arrow function to fetch a single playlist
     const params = new URLSearchParams({
       part: "snippet",
       fields: "items(snippet(resourceId/videoId))",
@@ -28,7 +25,7 @@ async function getYoutubeContent(playlistIDs, YOUTUBE_API_KEY)
       key: YOUTUBE_API_KEY,
     });
 
-    const url = `https://www.googleapis.com/youtube/v3/playlistItems?${params}`;
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?${params}`; // get videos from a playlist (in this case the "uploads" playlist of a channel)
 
     try {
       const response = await fetch(url);
@@ -52,7 +49,7 @@ async function getYoutubeContent(playlistIDs, YOUTUBE_API_KEY)
     playlistIDs.map(fetchPlaylist)
   );
 
-  return data.filter(Boolean); // Remove as playlists que falharam
+  return data.filter(Boolean); // Remove any null responses from the array
 }
 
 async function getVideoInfo(data, YOUTUBE_API_KEY) {
@@ -70,12 +67,12 @@ async function getVideoInfo(data, YOUTUBE_API_KEY) {
     }
   }
 
-  if (videoIds.length === 0) console.warn("Nenhum vídeo encontrado em algum canal");
+  if (videoIds.length === 0) console.warn("No video IDs found in the provided playlists.");
 
   for (let i = 0; i < videoIds.length; i += 50) {
     const ids = videoIds.slice(i, i + 50).join(',');
 
-    const url = `https://www.googleapis.com/youtube/v3/videos?` + 
+    const url = `https://www.googleapis.com/youtube/v3/videos?` + // Get video details for the collected video IDs
     `part=snippet,liveStreamingDetails` + 
     `&fields=items(id,snippet(title,channelId,channelTitle,thumbnails/maxres/url,thumbnails/high/url),liveStreamingDetails)` + 
     `&id=${ids}&key=${YOUTUBE_API_KEY}`;

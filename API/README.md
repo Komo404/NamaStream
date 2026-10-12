@@ -19,9 +19,25 @@ https://namastream.migueloliv-dev.workers.dev
 
 The stream endpoints return normalized JSON arrays. The Wallhaven endpoint returns the upstream Wallhaven search response. A missing `q` parameter returns `400`.
 
-## Caching and scheduled refresh
+## Cache behavior
 
-Stream data is stored in the `STREAMS_KV` namespace. Each stream endpoint refreshes stale data when the cached result is older than 90 seconds. The Worker also has a scheduled trigger configured in `wrangler.jsonc` to request all three stream endpoints every seven minutes.
+Stream data is stored in `STREAMS_KV`. The YouTube endpoints refresh data older than 3 minutes; Twitch refreshes data older than 90 seconds. Refresh happens in the request that encounters stale data, so that request waits for the upstream APIs. Scheduled refresh is currently disabled.
+
+## YouTube channel groups
+
+The GitHub template keeps personal channel lists out of commits. Copy `src/channels_example.js` to `src/channels_local.js`, then export both arrays from the copied file:
+
+```js
+export const channelIDs = [
+  // { name: "example", channelId: "UC..." },
+];
+
+export const channelIDs2 = [
+  // Optional second group for /v3/youtube/2
+];
+```
+
+`channels_local.js` is ignored by Git and must be present when running or deploying the Worker. The extension currently calls both YouTube endpoints, so leave the second list empty if you only need one group; otherwise requests to the second endpoint still occur, even with no channels in that group. The second endpoint is useful for distributing a large channel list across separate Worker requests. Both services currently fetch up to three recent videos per channel.
 
 ## Requirements
 
@@ -53,13 +69,6 @@ Start the local Worker:
 npm run dev
 ```
 
-To test the scheduled handler locally, start Wrangler with the scheduled flag and request the local scheduled endpoint:
-
-```bash
-npx wrangler dev --test-scheduled
-curl "http://localhost:8787/__scheduled"
-```
-
 Deploy the Worker with:
 
 ```bash
@@ -70,12 +79,13 @@ npm run deploy
 
 ```text
 API/
-├── src/index.ts             # Hono routes and scheduled handler
-├── src/cache.js             # KV reads, writes, and refresh helpers
-├── src/youtubeService.js    # YouTube channel-group fetch and normalization
-├── src/youtubeService2.js   # Second YouTube channel-group fetch
-├── src/twitchService.js     # Twitch authentication and stream fetch
-├── src/wallhavenService.js  # Wallhaven search proxy
-├── wrangler.jsonc           # Worker, KV, and cron configuration
-└── tsconfig.json             # TypeScript configuration
+|-- src/index.js             # Hono routes
+|-- src/cache.js             # KV reads, writes, and refresh helpers
+|-- src/channels_example.js  # Template for personal YouTube channel groups
+|-- src/channels_local.js    # Local channel groups (ignored by Git)
+|-- src/youtubeService.js    # YouTube channel-group fetch and normalization
+|-- src/youtubeService2.js   # Second YouTube channel-group fetch
+|-- src/twitchService.js     # Twitch authentication and stream fetch
+|-- src/wallhavenService.js  # Wallhaven search proxy
+|-- wrangler.jsonc           # Worker and KV configuration
 ```
