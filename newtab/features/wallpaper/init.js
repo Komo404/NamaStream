@@ -13,39 +13,53 @@ export async function initWallpaperFeature()
     }
 
     window.__wallpaperSlots = wallpaperSlots;
-    // The modal is hidden initially; defer loading its historical wallpapers.
+
+    // The modal is hidden initially; defer loading its historical wallpapers
     renderWallpaperSlots(wallpaperSlots, { loadPreviews: false });
     bindSlotClicks(wallpaperSlots);
 
     if (wallpaperSlots[0]) {
-        document.documentElement.style.setProperty(
-            "--wallpaper-url",
-            `url(${wallpaperSlots[0].data})`
-        );
+        document.documentElement.style.setProperty("--wallpaper-url", `url(${wallpaperSlots[0].data})`);
     }
 
-    document.getElementById("url-btn").addEventListener("click", async () => {
-        const url = document.getElementById("url-input").value.trim();
+    document.getElementById("image-search-btn").addEventListener("click", async () => {
+        const url = document.getElementById("image-search-input").value.trim();
         if (!url) return;
 
         wallpaperSlots = await saveWallpaper({ type: "url", data: url }, wallpaperSlots);
         window.__wallpaperSlots = wallpaperSlots;
         renderWallpaperSlots(wallpaperSlots);
-        document.getElementById("url-input").value = "";
+        document.getElementById("image-search-input").value = "";
     });
 
-    document.getElementById("wallpaper-search-btn").addEventListener("click", async () => {
+    document.getElementById("wallhaven-search-btn").addEventListener("click", async () => {
         wallpaperSlots = await searchWallpapers(wallpaperSlots);
         window.__wallpaperSlots = wallpaperSlots;
         renderWallpaperSlots(wallpaperSlots);
-        document.getElementById("wallpaper-search-modal")?.classList.add("hidden");
     });
 
     let currentPendingFile = null;
-    document.getElementById("file-input").addEventListener("change", (e) => {
+    const filePreview = document.getElementById("file-preview");
+    let filePreviewUrl = null;
+
+    function clearFilePreview() {
+        filePreview.classList.add("hidden");
+        filePreview.removeAttribute("src");
+        if (filePreviewUrl) {
+            URL.revokeObjectURL(filePreviewUrl);
+            filePreviewUrl = null;
+        }
+    }
+
+    filePreview.addEventListener("error", clearFilePreview);
+
+    document.getElementById("file-input-field").addEventListener("change", (e) => {
+        clearFilePreview();
         currentPendingFile = e.target.files[0];
-        if (currentPendingFile) {
-            document.getElementById("file-name").textContent = currentPendingFile.name;
+        if (currentPendingFile != null && currentPendingFile.type.startsWith("image/")) {
+            filePreviewUrl = URL.createObjectURL(currentPendingFile);
+            filePreview.src = filePreviewUrl;
+            filePreview.classList.remove("hidden");
             document.getElementById("file-set-btn").disabled = false;
         }
     });
@@ -59,8 +73,8 @@ export async function initWallpaperFeature()
             renderWallpaperSlots(wallpaperSlots);
 
             currentPendingFile = null;
-            document.getElementById("file-input").value = "";
-            document.getElementById("file-name").textContent = "No file selected";
+            clearFilePreview();
+            document.getElementById("file-input-field").value = "";
             document.getElementById("file-set-btn").disabled = true;
         });
     });

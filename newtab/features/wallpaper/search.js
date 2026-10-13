@@ -1,7 +1,7 @@
 import { saveWallpaper } from "./storage.js";
 
 export async function searchWallpapers(wallpaperSlots = []) {
-    const query = document.getElementById("wallpaper-search").value;
+    const query = document.getElementById("wallhaven-search-input").value;
     const results = document.getElementById("wallpaper-results");
 
     results.innerHTML = "";

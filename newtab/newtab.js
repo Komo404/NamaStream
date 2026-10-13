@@ -24,14 +24,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("twitch")
     ];
 
-    // Lê as configs salvas e aplica na tela
+    // Read settings from storage and apply them to the UI
     const settings = await getCachedSettings();
     applySettings(settings, { firefox_logo, firefox_wordmark, search_bar, barsSection, bars: barsList });
 
-    // Initialize bar interactions before any network-dependent feature.
+    // Initialize bar interactions before any network-dependent feature
     await initBars({ bars: barsList });
 
-    // These features are independent and can load concurrently.
+    // Features that are independent and can load concurrently
     const featureInitialization = Promise.allSettled([
         initStreams({ youtube: youtubeContainer, agenda: agendaContainer, twitch: twitchContainer }),
         initWeatherFeature(),
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (result.status === "rejected") console.error("Feature initialization failed:", result.reason);
     }));
 
-    // Ouve mudanças de storage e reaplica elas quando mudam
+    // Listen for changes in settings and apply them dynamically
     onChanged((changes, area) => {
         if (area !== "local") return;
 

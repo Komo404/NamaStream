@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <button id="weatherMenu" style="background-color: transparent; color: white; font-size: 26px;"> ⋮ </button>
+                    <button id="weatherMenu"> ⋮ </button>
                 </a>
 
             </div> 
@@ -58,7 +58,7 @@
             </section>
 
             <form id="search-bar" action="https://www.google.com/search" method="GET">
-                <input id="search" name="q" placeholder="Search with Google or type an adress">
+                <input id="search" name="q" placeholder="Search with Google or type an address">
             </form>
 
         </div>
@@ -69,7 +69,7 @@
                 <div id="agenda" class="info-bar"> <div class="bar-handle"></div> <div class="scroll-container"> </div></div>
             </div>
             
-            <div id="twitch" class="info-bar" style="border: 1px purple solid"> 
+            <div id="twitch" class="info-bar"> 
                 <div class="bar-handle"></div> 
                 <div class="scroll-container"></div>
             </div>
@@ -79,59 +79,61 @@
             <button id="wallpaper-btn">🪶</button>
         </section>
 
-        <div id="wallpaper-popup" class="modal-overlay hidden">
-            <div class="modal-card">
-                <button id="wallpaper-close">✕</button>
+        <div id="wallpaper-popup" class="wallpaper-modal-overlay hidden">
+            <div class="wallpaper-modal">
+                <button id="wallpaper-close" aria-label="Close wallpapers">×</button>
 
                 <h1 id="title">Wallpapers</h1>
 
-            <section id="wallpapers">
-                <section id="horizontal-container">
-                    <section class="section-name">
-                        <h2>Past Wallpapers</h2>
-                    </section>
-                    <section id="pastwallpapers">
-                        <button class="slot" data-index="0"><span class="slot-label">Current</span></button>
-                        <button class="slot" data-index="1"><span class="slot-label">Slot 2</span></button>
-                        <button class="slot" data-index="2"><span class="slot-label">Slot 3</span></button>
+                <section id="wallpapers">
+                    <section id="horizontal-container">
+                        <section class="section-name">
+                            <h2>Past Wallpapers</h2>
+                        </section>
+                        <section id="pastwallpapers">
+                            <button class="slot" data-index="0"><span class="slot-label">Current</span></button>
+                            <button class="slot" data-index="1"><span class="slot-label">Slot 2</span></button>
+                            <button class="slot" data-index="2"><span class="slot-label">Slot 3</span></button>
+                        </section>
                     </section>
                 </section>
-            </section>
 
-            <section id="inputs">
-                <div class="input-group">
-                    <section class="section-name"> <h2> Image URL</h2> </section>
-                    <div class="input-row">
-                        <input type="text" id="url-input" placeholder="https://...">
-                        <button id="url-btn" class="action-btn">Set Background</button>
-                    </div>
-                </div>
+                <section id="wallpaper-change-options">
 
-                <div class="input-group">
-                    <section class="section-name"> <h2> Wallhaven </h2> </section>
-                    <div class="input-row">
-                        <input id="wallpaper-search" type="text" placeholder="Search with Wallhaven">
-                        <button id="wallpaper-search-btn" class="action-btn"> Search </button>
+                    <div class="wallpaper-change-option">
+                        <section class="section-name"> <h2>Image URL</h2> </section>
+                        <div class="input-row">
+                            <input type="text" id="image-search-input" aria-label="Image URL" placeholder="https://...">
+                            <button id="image-search-btn" class="action-btn">Set Background</button>
+                        </div>
                     </div>
 
-                    <div id="modal-results" class="hidden">
-                        <h2 style="color: white; font-size: 1.25rem;">Results</h2>
-                        <div id="wallpaper-results" style="padding: 1vw;"></div>
+                    <div class="wallpaper-change-option">
+                        <section class="section-name"> <h2>Wallhaven</h2> </section>
+                        <div class="input-row">
+                            <input id="wallhaven-search-input" aria-label="Search Wallhaven" type="text" placeholder="Search with Wallhaven">
+                            <button id="wallhaven-search-btn" class="action-btn"> Search </button>
+                        </div>
+
+                        <div id="modal-results" class="hidden">
+                            <h2>Results</h2>
+                            <div id="wallpaper-results"></div>
+                        </div>
+
                     </div>
 
-                </div>
+                    <div class="wallpaper-change-option">
+                        <section class="section-name"> <h2>From your computer</h2> </section>
+                        <div class="input-row">
+                            <input type="file" id="file-input-field" accept="image/*" style="display:none">
 
-                <div class="input-group">
-                    <section class="section-name"> <h2> From PC </h2> </section>
-                    <div class="input-row">
-                        <input type="file" id="file-input" accept="image/*" style="display:none">
-
-                        <label for="file-input" class="action-btn">Choose File</label>
-                        <span id="file-name" class="file-name-display">No file selected</span>
-                        <button id="file-set-btn" class="action-btn">Set Background</button>
+                            <label for="file-input-field" class="action-btn">Choose File</label>
+                            <button id="file-set-btn" class="action-btn">Set Background</button>
+                        </div>
+                        <img id="file-preview" class="hidden" alt="Selected wallpaper preview">
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
 
     </main>
