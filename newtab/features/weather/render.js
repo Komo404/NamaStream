@@ -60,7 +60,7 @@ export function setWeatherIcon(code) {
         icon = "sunny";
     }
     else if ([1, 2].includes(code)) {
-        icon = "partly-cloudy";
+        icon = "partly-sunny";
     }
     else if (code === 3) {
         icon = "cloudy";
@@ -69,8 +69,8 @@ export function setWeatherIcon(code) {
         icon = "rain";
     }
     else if (code >= 80) {
-        icon = "thunderstorm";
+        icon = "thunderstorms";
     }
 
-    weatherIcon.style.content = `url("chrome://browser/skin/weather/${icon}.svg")`;
+    weatherIcon.style.backgroundImage = `url("chrome://browser/skin/weather/${icon}.svg")`;
 }
