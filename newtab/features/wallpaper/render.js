@@ -1,4 +1,7 @@
-export function renderWallpaperSlots(wallpaperSlots, { loadPreviews = true } = {}) {
+
+
+export function renderWallpaperSlots(wallpaperSlots, { loadPreviews = true } = {}) 
+{
     const slotEls = document.querySelectorAll(".slot");
 
     slotEls.forEach((el, index) => {
@@ -19,7 +22,8 @@ export function renderWallpaperSlots(wallpaperSlots, { loadPreviews = true } = {
     });
 }
 
-export function bindSlotClicks(wallpaperSlots) {
+export function bindSlotClicks(wallpaperSlots) 
+{
     const slotEls = document.querySelectorAll(".slot");
 
     slotEls.forEach((el) => {

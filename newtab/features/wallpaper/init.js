@@ -12,11 +12,11 @@ export async function initWallpaperFeature()
         await chrome.storage.local.set({ wallpapers: wallpaperSlots });
     }
 
-    window.__wallpaperSlots = wallpaperSlots;
+    window.__wallpaperSlots = wallpaperSlots; // Store the wallpaper slots in a global variable for easy access
 
-    // The modal is hidden initially; defer loading its historical wallpapers
     renderWallpaperSlots(wallpaperSlots, { loadPreviews: false });
-    bindSlotClicks(wallpaperSlots);
+
+    bindSlotClicks(wallpaperSlots); // Bind click events to the slots for wallpaper selection
 
     if (wallpaperSlots[0]) {
         document.documentElement.style.setProperty("--wallpaper-url", `url(${wallpaperSlots[0].data})`);
@@ -26,16 +26,15 @@ export async function initWallpaperFeature()
         const url = document.getElementById("image-search-input").value.trim();
         if (!url) return;
 
-        wallpaperSlots = await saveWallpaper({ type: "url", data: url }, wallpaperSlots);
-        window.__wallpaperSlots = wallpaperSlots;
-        renderWallpaperSlots(wallpaperSlots);
+        const updatedSlots = await saveWallpaper({ type: "url", data: url }, wallpaperSlots);
+        wallpaperSlots.splice(0, wallpaperSlots.length, ...updatedSlots);
+
+        renderWallpaperSlots(wallpaperSlots); // refresh wallpaper slots
         document.getElementById("image-search-input").value = "";
     });
 
     document.getElementById("wallhaven-search-btn").addEventListener("click", async () => {
-        wallpaperSlots = await searchWallpapers(wallpaperSlots);
-        window.__wallpaperSlots = wallpaperSlots;
-        renderWallpaperSlots(wallpaperSlots);
+        await searchWallpapers(wallpaperSlots);
     });
 
     let currentPendingFile = null;
@@ -68,12 +67,13 @@ export async function initWallpaperFeature()
         if (!currentPendingFile) return;
 
         compressImage(currentPendingFile, async (base64) => {
-            wallpaperSlots = await saveWallpaper({ type: "base64", data: base64 }, wallpaperSlots);
-            window.__wallpaperSlots = wallpaperSlots;
+            const updatedSlots = await saveWallpaper({ type: "base64", data: base64 }, wallpaperSlots);
+            wallpaperSlots.splice(0, wallpaperSlots.length, ...updatedSlots); // fix: update the wallpaperSlots array instead of reassigning it, because reassigning it would not update the reference used in bindSlotClicks, which is wallpaperSlots
             renderWallpaperSlots(wallpaperSlots);
 
             currentPendingFile = null;
             clearFilePreview();
+
             document.getElementById("file-input-field").value = "";
             document.getElementById("file-set-btn").disabled = true;
         });
