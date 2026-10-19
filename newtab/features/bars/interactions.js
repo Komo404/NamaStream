@@ -11,9 +11,12 @@ export function makeDraggable(bar) {
 
         isDragging = true;
         hasDragged = false;
+
         e.preventDefault();
+
         startPos = e.pageX;
         scrollStart = bar.scrollLeft;
+
         bar.style.cursor = "grabbing";
         bar.style.scrollSnapType = "none";
     });
@@ -113,7 +116,7 @@ export function makeMovable(el) {
         el.dataset.posY = String(elY);
 
         snapBarSections(el);
-        saveBarPosition(el.id, elX, elY);
+        saveBarPosition(el.id, parseFloat(el.dataset.posX), parseFloat(el.dataset.posY)); // send posX/Y instead of elX/Y so it uses updated variable that may be changed by snapBarSections
     });
 }
 
