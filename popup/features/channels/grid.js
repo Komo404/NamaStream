@@ -6,18 +6,11 @@ export function renderChannelGrid(ids, channelgridID)
     console.log("ids:", ids);
 
     const grid = document.getElementById(channelgridID);
-
-    console.log("grid encontrado:", grid);
-
-    if (!grid) {
-        console.error(`GRID #${channelgridID} NÃO ENCONTRADA`);
-        return;
-    }
+    if (!grid) return;
 
     grid.innerHTML = "";
 
     ids.forEach(channel => {
-        console.log("criando:", channel.name);
 
         const card = document.createElement("div");
         card.className = "channel-card";
@@ -74,5 +67,4 @@ export function renderChannelGrid(ids, channelgridID)
         grid.appendChild(card);
     });
 
-    console.log("grid final:", grid);
 }

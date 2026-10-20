@@ -35,7 +35,7 @@ export async function filterStreams(youtubeData, twitchStreams) {
     });
 
     HappeningStreams.sort((a, b) => {
-        if (pinnedChannels.indexOf(a.channelId) !== -1 && pinnedChannels.indexOf(b.channelId) === -1) {
+        if (pinnedChannels.indexOf(a.channelId) !== -1 && pinnedChannels.indexOf(b.channelId) === -1) { // If a is pinned and b is not, a should come first
             return new Date(a.scheduledStartTime) - new Date(b.scheduledStartTime) - 1000000000;
         } else if (pinnedChannels.indexOf(b.channelId) !== -1 && pinnedChannels.indexOf(a.channelId) === -1) {
             return new Date(a.scheduledStartTime) - new Date(b.scheduledStartTime) + 1000000000;
@@ -44,12 +44,12 @@ export async function filterStreams(youtubeData, twitchStreams) {
     });
 
     TwitchStreams.sort((a, b) => {
-        const aPinned = pinnedChannels.indexOf(a.name);
-        const bPinned = pinnedChannels.indexOf(b.name);
+        const aPinned = pinnedChannels.indexOf(a.login);
+        const bPinned = pinnedChannels.indexOf(b.login);
 
-        if (aPinned === -1 && bPinned === -1) return 0;
-        if (aPinned !== -1 && bPinned === -1) return -1;
-        if (bPinned !== -1 && aPinned === -1) return 1;
+        if (aPinned === -1 && bPinned === -1) return 0; // Neither is pinned, maintain original order
+        if (aPinned !== -1 && bPinned === -1) return -1; // a is pinned, b is not
+        if (bPinned !== -1 && aPinned === -1) return 1; // b is pinned, a is not
         return 0;
     });
 
