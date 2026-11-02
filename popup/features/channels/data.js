@@ -1,6 +1,6 @@
 export const youtubeIDs = [
     // Insert the channels here (same as backend)
-    // Ex: {name: "nak", channelId: "UCfGiBuBA0H7FNbtP4LMP8-g"}
+    {name: "nak", channelId: "UCfGiBuBA0H7FNbtP4LMP8-g"}
 ];
 
 export const twitchChannels = [

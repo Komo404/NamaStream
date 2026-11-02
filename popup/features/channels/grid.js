@@ -19,14 +19,10 @@ export function renderChannelGrid(ids, channelgridID)
             card.classList.add("disabled");
         }
 
-        const avatar = document.createElement("div");
-        avatar.className = "ch-avatar";
-
         const name = document.createElement("span");
         name.className = "ch-name";
         name.textContent = channel.name;
 
-        card.appendChild(avatar);
         card.appendChild(name);
 
         const pinIndex = pinnedChannels.indexOf(channel.channelId);

@@ -1,3 +1,4 @@
+/* #region Base and main view */
 * {
     box-sizing: border-box; 
     margin: 0; 
@@ -5,17 +6,16 @@
 }
 
 :root {
-    --accent-border: rgba(255, 255, 255, 0.35);
-    --buttonSel:       #070608;
-    --buttonSel-2:     #181818;
-    --text:          #ffffff;
-    --text-dim:      #6b6b8a;
-    --radius:        8px;
+    --accent-border: rgba(241, 241, 241, 0.35);
+    --buttonSel:       #37303d;
+    --buttonSel-2:     #303030;
+    --text:          white;
+    --text-dim:      #727272;
 }
 
 body {
     width: 300px;
-    background: #000000;
+    background: #1a1919;
     color: var(--text);
     font-size: 14px;
     user-select: none;
@@ -72,7 +72,6 @@ body {
 .action-btn {
     background-color: var(--buttonSel);
     border: 1px solid rgba(255,255,255,0.07);
-    border-radius: var(--radius);
     color: var(--text);
     font-size: 12px;
     font-weight: 500;
@@ -84,49 +83,6 @@ body {
 .action-btn:hover {
     background-color: var(--buttonSel-2);
     border-color: var(rgba(28, 3, 37, 0.507));
-} 
-
-.toggle-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--buttonSel);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: var(--radius);
-    padding: 9px 12px;
-}
-
-.toggle-label { font-size: 12px; font-weight: 500; }
-
-.toggle-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-}
-
-.toggle-track {
-    width: 36px;
-    height: 20px;
-    background-color: var(--buttonSel-2);
-    border-radius: 99px;
-    border: 1px solid rgba(255,255,255,0.1);
-    display: flex;
-    align-items: center;
-    padding: 2px;
-}
-
-.toggle-thumb {
-    width: 14px;
-    height: 14px;
-    background-color: var(--text-dim);
-    border-radius: 50%;
-}
-
-.toggle-btn[data-on="true"] .toggle-thumb {
-    transform: translateX(16px);
 }
 
 .divider {
@@ -135,6 +91,9 @@ body {
     margin: 2px 0;
 }
 
+/* #endregion */
+
+/* #region Bar settings */
 .bar-toggles { display: flex; flex-direction: column; gap: 2px; }
 
 .check-row {
@@ -179,7 +138,9 @@ body {
     border-color: var(--accent-border);
 }
 
+/* #endregion */
 
+/* #region Channel and layout views */
 #view-channels {
     overflow-y: auto;
     padding: 12px;
@@ -223,7 +184,6 @@ body {
     align-items: center;
     gap: 5px;
     padding: 8px 4px;
-    border-radius: var(--radius);
     border: 1px solid rgba(255,255,255,0.06);
     background-color: var(--buttonSel);
     cursor: pointer;
@@ -255,17 +215,6 @@ body {
     border-radius: 50%;
 }
 
-.ch-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: var(--buttonSel-2);
-    border: 1px solid rgba(255,255,255,0.08);
-    overflow: hidden;
-    flex-shrink: 0;
-}
-.ch-avatar img { width: 100%; height: 100%; object-fit: cover; }
-
 .ch-name {
     font-size: 10px;
     color: var(--text);
@@ -280,3 +229,4 @@ body {
 .layout-options { display: flex; flex-direction: column; gap: 2px; }
 
 .hidden { display: none !important; }
+/* #endregion */
