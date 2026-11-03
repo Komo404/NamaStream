@@ -4,6 +4,11 @@ import { bindStreamPreviews } from "./preview.js";
 
 export async function initStreams(domRefs) // domRefs: youtube, agenda e twitch
 {
+    if (domRefs.barsSection?.classList.contains("hidden") ||
+        domRefs.bars?.every(bar => !bar || bar.classList.contains("hidden"))) {
+        return;
+    }
+
     try {
         const [response1, response2, twitchRes] = await Promise.all([
             fetch("https://namastream.migueloliv-dev.workers.dev/v3/youtube/1"),

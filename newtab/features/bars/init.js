@@ -1,8 +1,11 @@
 import { makeDraggable, makeMovable } from "./interactions.js";
 import { restoreBarPositions, saveRestoreBarSizes } from "./positioning.js";
+import { bindBarsVisibilityToggle } from "./visibility.js";
 
 export async function initBars(domRefs) {
-    const { bars = [] } = domRefs;
+    const { bars = [], barsSection } = domRefs;
+
+    if (barsSection) bindBarsVisibilityToggle(barsSection);
 
     bars.filter(Boolean).forEach(bar => {
         const scrollContainer = bar.querySelector(".scroll-container") || bar;

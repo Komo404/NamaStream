@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     applySettings(settings, { firefox_logo, firefox_wordmark, search_bar, barsSection, bars: barsList });
 
     // Initialize bar interactions before any network-dependent feature
-    await initBars({ bars: barsList });
+    await initBars({ bars: barsList, barsSection });
 
     // Features that are independent and can load concurrently
     const featureInitialization = Promise.allSettled([
-        initStreams({ youtube: youtubeContainer, agenda: agendaContainer, twitch: twitchContainer }),
+        initStreams({ youtube: youtubeContainer, agenda: agendaContainer, twitch: twitchContainer, barsSection, bars: barsList }),
         initWeatherFeature(),
         initWallpaperFeature()
     ]);
@@ -50,6 +50,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (changes.repositionMode) {
             document.body.classList.toggle("reposition-mode", changes.repositionMode.newValue);
+        }
+
+        if (changes["bars-visible"]?.newValue === true) {
+            barsSection.classList.remove("hidden");
+            initStreams({ youtube: youtubeContainer, agenda: agendaContainer, twitch: twitchContainer, barsSection, bars: barsList });
+        } else if (changes["bars-visible"]?.newValue === false) {
+            barsSection.classList.add("hidden");
         }
 
         if (changes["layout-resizable-bar"]) {

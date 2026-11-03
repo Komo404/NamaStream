@@ -13,6 +13,7 @@ export const DEFAULT_SETTINGS = {
     "layout-resizable-bar": false,
     "repositionMode": false,
 
+    "bars-visible": true,
     "barPositions": {},
     "barSizes": {}
 };
@@ -38,6 +39,7 @@ export function applySettings(settings, domRefs = {}) {
     if (firefox_wordmark) firefox_wordmark.classList.toggle('hidden', !settings['layout-firefox-wordmark']);
     if (search_bar) search_bar.classList.toggle('hidden', !settings['layout-search-bar']);
 
+    if (barsSection) barsSection.classList.toggle('hidden', !settings['bars-visible']);
     if (barsSection) barsSection.classList.toggle('twitch-vertical', settings['layout-vertical-twitch']);
     if (barsSection) barsSection.classList.toggle('resizable', settings['layout-resizable-bar']);
 
