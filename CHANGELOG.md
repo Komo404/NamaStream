@@ -1,6 +1,8 @@
 ## Changelog
 
-### 1.35.0
+### 1.35.0 beta
+- Added the M shortcut to toggle stream bars, persisted across tabs, and skipped stream requests while all bars are hidden.
+- Improved the popup UI and simplified channel cards.
 - Refined the wallpaper modal and added a preview for images selected from the computer.
 - Corrected wallpaper control references to match their HTML IDs.
 - Fixed Firefox weather icon filenames and rendering.
