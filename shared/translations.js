@@ -11,6 +11,7 @@ export const translations = {
     "feeling": "Feeling",
     "humidity": "Humidity",
     "wind_speed": "Wind Speed",
+    "unknown_location": "Unknown location",
 
     "enable_disable_channels": "Enable / Disable Channels",
     "sort_by_group": "Sort by Group",
@@ -41,6 +42,7 @@ export const translations = {
     "feeling": "Sensação",
     "humidity": "Umidade",
     "wind_speed": "Vento",
+    "unknown_location": "Local desconhecido",
 
     "enable_disable_channels": "Habilitar / Desabilitar Canais",
     "sort_by_group": "Ordenar por grupo",
@@ -59,6 +61,37 @@ export const translations = {
     "done_repositioning": "Terminar Reposicionamento",
     "reposition_bars": "Reposicionar barras",
     "reset_pos": "Resetar Posições"
+  },
+  "ja": {
+    "watching_now": "人が視聴中",
+    "hours": "時間後",
+    "hour": "時間後",
+    "in_1_minute": "1分後",
+    "minutes": "分後",
+    "in": "",
+    "starts": "開始",
+    "feeling": "体感温度",
+    "humidity": "湿度",
+    "wind_speed": "風速",
+    "unknown_location": "不明な場所",
+
+    "enable_disable_channels": "チャンネルの有効化・無効化",
+    "sort_by_group": "グループ別に並べ替え",
+    "layout_options": "レイアウト設定",
+    "youtube_streams": "YouTubeの配信",
+    "twitch_streams": "Twitchの配信",
+    "youtube_channels": "YouTubeチャンネル",
+    "left_right_click": "ヒント：右クリックで固定",
+    "twitch_channels": "Twitchチャンネル",
+    "coming_soon": "近日公開",
+    "firefox_logo": "Firefoxのロゴ",
+    "firefox_wordmark": "Firefoxのワードマーク",
+    "search_bar": "検索バー",
+    "vertical_twitch": "Twitchバーを縦に表示",
+    "resizable_bars": "バーのサイズ変更",
+    "done_repositioning": "配置の変更を完了",
+    "reposition_bars": "バーの配置を変更",
+    "reset_pos": "位置をリセット"
   }
 };
 

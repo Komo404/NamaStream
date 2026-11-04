@@ -4,7 +4,7 @@ import { fetchWeatherFromCoords } from "./api.js";
 export function renderWeather(weatherData, geoData, manualName = null) {
     const current = weatherData.current;
 
-    const place = manualName || (geoData?.address?.city || geoData?.address?.town || geoData?.address?.village || geoData?.address?.municipality || geoData?.address?.county || "Local desconhecido") + (geoData?.address?.state ? `, ${geoData.address.state}` : "");
+    const place = manualName || (geoData?.address?.city || geoData?.address?.town || geoData?.address?.village || geoData?.address?.municipality || geoData?.address?.county || lang["unknown_location"]) + (geoData?.address?.state ? `, ${geoData.address.state}` : "");
 
     document.getElementById("weatherTemp").textContent = `${Math.round(current.temperature_2m)}°`;
     document.getElementById("weatherLocation").textContent = place;
