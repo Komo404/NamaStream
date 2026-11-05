@@ -1,7 +1,8 @@
 ## Changelog
 
-### 1.35.0 beta
-- Added Japanese language support.
+### 1.35.0
+- Fixed the weather settings close button layout, restored manual locations with zero coordinates, and prevented outdated weather responses from replacing newer selections
+- Added Japanese language support
 - Added the M shortcut to toggle stream bars, persisted across tabs, and skipped stream requests while all bars are hidden.
 - Improved the popup UI and simplified channel cards.
 - Refined the wallpaper modal and added a preview for images selected from the computer.

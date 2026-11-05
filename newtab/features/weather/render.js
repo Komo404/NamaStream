@@ -1,5 +1,5 @@
 import { lang } from "../../../shared/translations.js";
-import { fetchWeatherFromCoords } from "./api.js";
+import { fetchWeatherFromCoords, beginWeatherSelection, currentSelection } from "./api.js";
 
 export function renderWeather(weatherData, geoData, manualName = null) {
     const current = weatherData.current;
@@ -22,25 +22,19 @@ export function renderDropdown(results) {
         const div = document.createElement("div");
         div.className = "weather-option";
 
-        const label =
-            `${place.name}` +
-            (place.admin1 ? `, ${place.admin1}` : "") +
-            (place.country ? `, ${place.country}` : "");
+        const label = `${place.name}` + (place.admin1 ? `, ${place.admin1}` : "") + (place.country ? `, ${place.country}` : "");
 
         div.textContent = label;
 
         div.addEventListener("click", async () => {
+            const selection = beginWeatherSelection();
             dropdown.innerHTML = "";
             document.getElementById("weatherLocationInput").value = label;
 
-            chrome.storage.local.set({
-                weatherMode: "manual",
-                lat: place.latitude,
-                lon: place.longitude,
-                name: place.name
-            });
+            chrome.storage.local.set({weatherMode: "manual", lat: place.latitude, lon: place.longitude, name: place.name});
 
             const result = await fetchWeatherFromCoords(place.latitude, place.longitude, place.name);
+            if (selection !== currentSelection) return;
             if (result) {
                 renderWeather(result.weatherData, result.geoData, result.manualName || place.name);
             }

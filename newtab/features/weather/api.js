@@ -1,5 +1,12 @@
 const REQUEST_TIMEOUT_MS = 8000;
 
+export let currentSelection;
+
+export function beginWeatherSelection() {
+    currentSelection = {};
+    return currentSelection;
+}
+
 function fetchWithTimeout(url) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
@@ -17,10 +24,7 @@ export async function fetchWeather() {
             });
         });
 
-        return fetchWeatherFromCoords(
-            position.coords.latitude,
-            position.coords.longitude
-        );
+        return fetchWeatherFromCoords(position.coords.latitude, position.coords.longitude);
     } catch (err) {
         console.warn("Geolocation failed", err);
         return null;
@@ -30,9 +34,7 @@ export async function fetchWeather() {
 export async function fetchWeatherFromCoords(lat, lon, manualName = null) {
     try {
         const responsePromise = fetchWithTimeout(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&timezone=auto`);
-        const geoPromise = manualName
-            ? Promise.resolve(null)
-            : fetchWithTimeout(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+        const geoPromise = manualName ? Promise.resolve(null) : fetchWithTimeout(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
                 .catch(err => {
                     console.warn("Reverse geocoding failed", err);
                     return null;
@@ -58,8 +60,4 @@ export async function fetchWeatherFromCoords(lat, lon, manualName = null) {
         console.error(err);
         return null;
     }
-}
-
-export async function initWeather() {
-    // placeholder?
 }

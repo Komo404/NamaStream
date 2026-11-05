@@ -1,22 +1,19 @@
-import { fetchWeather, fetchWeatherFromCoords } from "./api.js";
+import { fetchWeather, fetchWeatherFromCoords, beginWeatherSelection, currentSelection } from "./api.js";
 import { renderWeather } from "./render.js";
 import { bindWeatherEvents } from "./events.js";
 
 export async function initWeatherFeature() {
+    const selection = beginWeatherSelection();
     bindWeatherEvents();
 
-    const saved = await chrome.storage.local.get([
-        "weatherMode",
-        "lat",
-        "lon",
-        "name"
-    ]);
+    const saved = await chrome.storage.local.get(["weatherMode", "lat", "lon", "name"]);
+    if (selection !== currentSelection) return;
 
-    if (saved.weatherMode === "manual" && saved.lat && saved.lon) {
+    if (saved.weatherMode === "manual" && saved.lat != null && saved.lon != null && saved.name != null) {
         const res = await fetchWeatherFromCoords(saved.lat, saved.lon, saved.name);
-        if (res) renderWeather(res.weatherData, res.geoData, res.manualName);
+        if (selection === currentSelection && res) renderWeather(res.weatherData, res.geoData, res.manualName);
     } else {
         const res = await fetchWeather();
-        if (res) renderWeather(res.weatherData, res.geoData, res.manualName || null);
+        if (selection === currentSelection && res) renderWeather(res.weatherData, res.geoData, res.manualName || null);
     }
 }
