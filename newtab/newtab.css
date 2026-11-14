@@ -56,7 +56,7 @@ main {
 #weatherIcon {
     width: 32px;
     height: 32px;
-    background: url("chrome://browser/skin/weather/night-clear.svg") center / contain no-repeat;
+    background: url("/assets/weather/night-clear.svg") center / contain no-repeat;
     box-sizing: inherit;
 }
 

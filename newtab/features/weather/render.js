@@ -66,5 +66,5 @@ export function setWeatherIcon(code) {
         icon = "thunderstorms";
     }
 
-    weatherIcon.style.backgroundImage = `url("chrome://browser/skin/weather/${icon}.svg")`;
+    weatherIcon.style.backgroundImage = `url("/assets/weather/${icon}.svg")`;
 }

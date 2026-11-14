@@ -1,6 +1,6 @@
 # NamaStream · Live Stream Dashboard
 
-> A Firefox new tab extension that replaces your browser's default new tab with a real-time dashboard of live streams and upcoming schedules. Powered by the YouTube and Twitch APIs.
+> A web extension that replaces your browser's default new tab with a real-time dashboard of live streams and upcoming schedules. Powered by the YouTube and Twitch APIs.
 
 ![License](https://img.shields.io/github/license/komo404/namastream)
 ![Firefox Add-on](https://img.shields.io/badge/Firefox-Add--on-FF7139?logo=firefox-browser&logoColor=white)
@@ -20,7 +20,7 @@
 - **Upcoming streams panel**: Scheduled streams sorted by start time, with localized countdowns
 - **Twitch panel**: channels currently live on Twitch
 - **Weather widget**: Current conditions, feels-like, humidity and wind speed based on your location; supports manual city search
-- **Custom new tab**: Takes over Firefox's new tab with a full-screen dashboard and custom wallpaper support
+- **Custom new tab**: Replaces the new tab in Firefox and Chrome with a full-screen dashboard and custom wallpaper support
 - **Popup settings**: Pin or disable individual channels, toggle bars, change layout, reposition bars freely, resize bars
 
 ### Architecture highlights
@@ -49,8 +49,9 @@
 - [x] Vertical Twitch bar layout (v1.3.2)
 - [x] Live preview on thumbnail hover (v1.3.3)
 - [x] Client startup and asset-loading optimizations (v1.3.4)
-- [ ] Mobile Support
-- [ ] Configurable hover-preview behavior
+- [x] Chrome support (v1.35)
+- [x] Mobile Support (v1.35)
+- [x] Configurable hover-preview behavior (v1.35)
 
 ## Stacks
 
@@ -101,6 +102,13 @@ To load the extension in Firefox:
 2. Click **This Firefox** → **Load Temporary Add-on**
 3. Select `manifest.json` from the root of this repo
 
+To load the extension in Chrome:
+1. Open `chrome://extensions`
+2. Enable **Developer mode**
+3. Click **Load unpacked** and select the root of this repo
+
+Both browsers use the same `manifest.json` and extension files.
+
 ---
 
 ## Third-party services
@@ -122,6 +130,10 @@ Wallpaper search uses [Wallhaven](https://wallhaven.cc/). Weather data uses [Ope
 - [Privacy Policy](./PRIVACY.md)
 - [Changelog](./CHANGELOG.md)
 - [License](./LICENSE)
+
+### Weather icons
+
+The SVGs in `assets/weather/` are copied from Firefox's weather resources and are licensed under the [Mozilla Public License 2.0](https://mozilla.org/MPL/2.0/). Their original license notices are preserved in each file.
 
 ---
 *NamaStream is an independent project not affiliated with or endorsed by YouTube, Twitch, Google, or OpenStreetMap.*
