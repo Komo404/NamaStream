@@ -1,30 +1,33 @@
 ## Changelog
 
+### 1.36.0 beta
+- Added simultaneous YouTube streams in theater mode
+
 ### 1.35.0
 - Added optional theater mode for YouTube hover previews
 - Fixed the weather settings close button layout, restored manual locations with zero coordinates, and prevented outdated weather responses from replacing newer selections
 - Added Japanese language support
-- Added the M shortcut to toggle stream bars, persisted across tabs, and skipped stream requests while all bars are hidden.
-- Improved the popup UI and simplified channel cards.
-- Refined the wallpaper modal and added a preview for images selected from the computer.
-- Corrected wallpaper control references to match their HTML IDs.
-- Fixed Firefox weather icon filenames and rendering.
-- Converted the backend Worker entry point to JavaScript.
-- Increased YouTube cache freshness to 3 minutes and disabled scheduled refresh.
-- Added a local, Git-ignored configuration path for YouTube channel groups.
+- Added the M shortcut to toggle stream bars, persisted across tabs, and skipped stream requests while all bars are hidden
+- Improved the popup UI and simplified channel cards
+- Refined the wallpaper modal and added a preview for images selected from the computer
+- Corrected wallpaper control references to match their HTML IDs
+- Fixed Firefox weather icon filenames and rendering
+- Converted the backend Worker entry point to JavaScript
+- Increased YouTube cache freshness to 3 minutes and disabled scheduled refresh
+- Added a local, Git-ignored configuration path for YouTube channel groups
 
 
 ### 1.3.4 (v1.34.0)
-- Bumped the extension version to 1.34.0.
-- Initialized bar interactions before network-dependent features.
-- Loaded streams, weather, and wallpaper setup concurrently.
-- Added request timeouts for geolocation and weather services.
-- Parallelized weather and reverse-geocoding requests.
-- Added lazy loading for stream and wallpaper-result images.
-- Deferred hidden wallpaper previews until the wallpaper modal opens.
-- Replaced the default 2.9 MB PNG background with an approximately 64 KB WebP asset.
-- Added stream response validation to surface API failures cleanly.
-- Updated the manifest description and host permissions.
+- Bumped the extension version to 1.34.0
+- Initialized bar interactions before network-dependent features
+- Loaded streams, weather, and wallpaper setup concurrently
+- Added request timeouts for geolocation and weather services
+- Parallelized weather and reverse-geocoding requests
+- Added lazy loading for stream and wallpaper-result images
+- Deferred hidden wallpaper previews until the wallpaper modal opens
+- Replaced the default 2.9 MB PNG background with an approximately 64 KB WebP asset
+- Added stream response validation to surface API failures cleanly
+- Updated the manifest description and host permissions
 
 ### 1.3.3 (v1.33.0)
 - Update channel comments

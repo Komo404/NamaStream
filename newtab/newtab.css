@@ -1,5 +1,6 @@
 
-:root { /* Define a CSS variable for the wallpaper URL */
+/* #region Base and page layout */
+:root {
     --wallpaper-url: url("/assets/DefaultBackground.webp");
 }
 
@@ -23,6 +24,9 @@ main {
     padding-block-start: calc(calc(8 * 0.267rem) * 4);
 }
 
+/* #endregion */
+
+/* #region Weather widget */
 #weather {
     inset-inline-end: calc(8 * 0.267rem);
     font-size: inherit;
@@ -145,6 +149,9 @@ main {
     background-color: rgba(255, 255, 255, 0.12);
 }
 
+/* #endregion */
+
+/* #region Weather settings */
 #weatherSettings {
     display: flex;
     flex-direction: column;
@@ -269,6 +276,9 @@ main {
     background: rgba(255, 255, 255, 0.16);
 }
 
+/* #endregion */
+
+/* #region Search and wordmark */
 #search-wrapper {
     padding: 0;
 }
@@ -322,6 +332,9 @@ main {
     padding-inline-start: 52px;
 }
 
+/* #endregion */
+
+/* #region Stream bar layout */
 #bars {
     display: flex;
     flex-direction: column;
@@ -429,6 +442,9 @@ main {
     box-sizing: border-box;
 }
 
+/* #endregion */
+
+/* #region Stream cards */
 .live {
     display: flex;
     flex-direction: column;
@@ -487,6 +503,9 @@ main {
     color: rgb(0, 191, 255);
 }
 
+/* #endregion */
+
+/* #region Wallpaper button and modal */
 #wallpaper-button {
     width: 45px;
     aspect-ratio: 4 / 4;
@@ -562,6 +581,9 @@ main {
     font-weight: 600;
 }
 
+/* #endregion */
+
+/* #region Wallpaper history */
 .wallpaper-modal #pastwallpapers {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -611,6 +633,9 @@ main {
     border-color: #c2c2cc;
 }
 
+/* #endregion */
+
+/* #region Wallpaper controls and file preview */
 .wallpaper-modal #wallpaper-change-options {
     display: grid;
     gap: 18px;
@@ -703,6 +728,9 @@ main {
     object-fit: contain;
 }
 
+/* #endregion */
+
+/* #region Buttons and wallpaper actions */
 #changewallpaper {
   display: flex;
   flex-direction: column;
@@ -738,6 +766,9 @@ button:hover {
   background-color: #bdbebe;
 }
 
+/* #endregion */
+
+/* #region Wallpaper close and results */
 .wallpaper-modal #wallpaper-close {
     position: absolute;
     top: 20px;
@@ -799,12 +830,16 @@ button:hover {
     opacity: 0.8;
 }
 
+/* #endregion */
+
+/* #region Theater dialog and toolbar */
 #stream-preview-theater {
-    width: min(960px, calc(100vw - 48px), calc((100dvh - 100px) * 16 / 9));
+    width: min(1440px, calc(100vw - 48px));
     max-width: none;
-    max-height: none;
+    max-height: calc(100dvh - 48px);
     margin: auto;
-    padding: 36px 0 0;
+    padding: 0;
+    overflow: auto;
     border: 1px solid #626269;
     border-radius: 4px;
     background: #25252a;
@@ -813,7 +848,64 @@ button:hover {
 }
 
 #stream-preview-theater::backdrop {
-    background: rgba(0, 0, 0, 0.75);
+    background: #000b;
+}
+
+.preview-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 6px;
+}
+
+#stream-preview-theater button {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 4px 10px;
+    color: white;
+    background: #45454d;
+}
+/* #endregion */
+
+/* #region Theater grid and players */
+.preview-body {
+    display: flex;
+    align-items: flex-start;
+}
+
+.preview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex: 1;
+    min-width: 0;
+    gap: 8px;
+    padding: 8px;
+}
+
+.preview-grid[data-count="1"] {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.preview-grid[data-count="1"] .preview-remove {
+    display: none;
+}
+
+.preview-grid[data-count="1"] .preview-player {
+    padding-top: 0;
+}
+
+.preview-player {
+    position: relative;
+    padding-top: 28px;
+    min-width: 0;
+    background: #17171b;
+}
+
+#stream-preview-theater .preview-remove {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 #stream-preview-theater iframe {
@@ -822,21 +914,45 @@ button:hover {
     aspect-ratio: 16 / 9;
     border: 0;
 }
+/* #endregion */
 
-#stream-preview-theater .preview-close {
-    position: absolute;
-    top: 4px;
-    right: 6px;
-    width: 28px;
-    height: 28px;
-    margin: 0;
-    background: transparent;
-    color: white;
-    font-size: 22px;
+/* #region Theater stream list */
+.preview-stream-list {
+    flex: 0 0 240px;
+    max-height: calc(100dvh - 110px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 8px;
 }
 
-#stream-preview-theater .preview-close:hover {
-    background: #45454d;
+.preview-stream-list[hidden] {
+    display: none;
 }
 
-.hidden { display: none !important }
+#stream-preview-theater .preview-stream-option {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    text-align: left;
+    gap: 6px;
+}
+
+.preview-stream-option img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.preview-stream-option:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+/* #endregion */
+
+/* #region Utilities */
+.hidden {
+    display: none !important;
+}
+/* #endregion */

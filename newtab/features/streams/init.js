@@ -27,14 +27,15 @@ export async function initStreams(domRefs) // domRefs: youtube, agenda e twitch
         const data = await filterStreams(youtubeResponse, twitchResponse);
         renderStreams(domRefs.youtube, domRefs.agenda, domRefs.twitch, data.HappeningStreams, data.ScheduledStreams, data.TwitchStreams);
 
-        bindStreamPreviews([domRefs.youtube, domRefs.agenda, domRefs.twitch]);
+        bindStreamPreviews([domRefs.youtube, domRefs.agenda, domRefs.twitch], data.HappeningStreams);
 
     } catch (err) {
         console.error("Erro ao carregar streams:", err);
     }
 }
 
-async function parseResponse(response) {
+async function parseResponse(response) 
+{
     if (!response.ok) throw new Error(`Streams API HTTP ${response.status}`);
     return response.json();
 }

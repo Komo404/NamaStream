@@ -29,6 +29,9 @@ export const translations = {
     "resizable_bars": "Resizable Bars",
     "preview_theater": "Theater preview",
     "close_preview": "Close preview",
+    "add_stream": "Add stream",
+    "remove_stream": "Remove stream",
+    "no_available_streams": "No other live streams available.",
     "done_repositioning": "Done Repositioning",
     "reposition_bars": "Reposition Bars",
     "reset_pos": "Reset pos"
@@ -62,6 +65,9 @@ export const translations = {
     "resizable_bars": "Barras redimensionáveis",
     "preview_theater": "Preview em modo teatro",
     "close_preview": "Fechar preview",
+    "add_stream": "Adicionar live",
+    "remove_stream": "Remover live",
+    "no_available_streams": "Nenhuma outra live disponível.",
     "done_repositioning": "Terminar Reposicionamento",
     "reposition_bars": "Reposicionar barras",
     "reset_pos": "Resetar Posições"
@@ -95,6 +101,9 @@ export const translations = {
     "resizable_bars": "バーのサイズ変更",
     "preview_theater": "シアターモードでプレビュー",
     "close_preview": "プレビューを閉じる",
+    "add_stream": "配信を追加",
+    "remove_stream": "配信を削除",
+    "no_available_streams": "追加できる配信はありません。",
     "done_repositioning": "配置の変更を完了",
     "reposition_bars": "バーの配置を変更",
     "reset_pos": "位置をリセット"
