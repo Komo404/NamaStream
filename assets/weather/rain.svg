@@ -4,18 +4,18 @@
 <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
 <style>
   .cloud {
-    fill: context-fill #5B5B66;
+    fill: #5B5B66;
   }
   .rain {
-    fill: context-fill #054096;
+    fill: #054096;
   }
 
   @media (prefers-color-scheme: dark) {
     .cloud {
-      fill: context-fill #BFBFC9;
+      fill: #BFBFC9;
     }
     .rain {
-      fill: context-fill #00B3F4;
+      fill: #00B3F4;
     }
   }
 </style>

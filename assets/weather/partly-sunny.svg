@@ -4,20 +4,20 @@
 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
 <style>
   .sun-1, .sun-2, .sun-3, .sun-4, .sun-5, .sun-6 {
-    fill: context-fill #E27F2E;
+    fill: #E27F2E;
   }
 
   .cloud {
-    fill: context-fill #5B5B66;
+    fill: #5B5B66;
   }
 
   @media (prefers-color-scheme: dark) {
     .sun-1, .sun-2, .sun-3, .sun-4, .sun-5, .sun-6 {
-      fill: context-fill #FFFF98;
+      fill: #FFFF98;
     }
 
     .cloud {
-      fill: context-fill #BFBFC9;
+      fill: #BFBFC9;
     }
   }
 </style>

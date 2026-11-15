@@ -1,6 +1,7 @@
 ## Changelog
 
 ### 1.36.0 beta
+- Fixed Chrome weather icon's visibility
 - Added simultaneous YouTube streams in theater mode
 
 ### 1.35.0
