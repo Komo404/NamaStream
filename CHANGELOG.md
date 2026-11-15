@@ -1,6 +1,6 @@
 ## Changelog
 
-### 1.35.0 beta
+### 1.35.0
 - Added optional theater mode for YouTube hover previews
 - Fixed the weather settings close button layout, restored manual locations with zero coordinates, and prevented outdated weather responses from replacing newer selections
 - Added Japanese language support

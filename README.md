@@ -50,7 +50,6 @@
 - [x] Live preview on thumbnail hover (v1.3.3)
 - [x] Client startup and asset-loading optimizations (v1.3.4)
 - [x] Chrome support (v1.35)
-- [x] Mobile Support (v1.35)
 - [x] Configurable hover-preview behavior (v1.35)
 
 ## Stacks
