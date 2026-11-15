@@ -1,3 +1,4 @@
+import { configureStreamPreviews } from "./features/streams/preview.js";
 import { initStreams } from "./features/streams/init.js";
 import { initBars } from "./features/bars/init.js";
 import { initWeatherFeature } from "./features/weather/init.js";
@@ -28,6 +29,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const settings = await getCachedSettings();
     applySettings(settings, { firefox_logo, firefox_wordmark, search_bar, barsSection, bars: barsList });
 
+    configureStreamPreviews(settings);
+
     // Initialize bar interactions before any network-dependent feature
     await initBars({ bars: barsList, barsSection });
 
@@ -46,7 +49,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     onChanged((changes, area) => {
         if (area !== "local") return;
 
-        getCachedSettings().then(settings => applySettings(settings, { firefox_logo, firefox_wordmark, search_bar, barsSection, bars: barsList }));
+        getCachedSettings().then(settings => {
+            applySettings(settings, { firefox_logo, firefox_wordmark, search_bar, barsSection, bars: barsList });
+            configureStreamPreviews(settings);
+        });
 
         if (changes.repositionMode) {
             document.body.classList.toggle("reposition-mode", changes.repositionMode.newValue);

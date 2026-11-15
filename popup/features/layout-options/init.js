@@ -2,13 +2,18 @@ import { lang } from "../../../shared/translations.js";
 
 export const repositionBtn = document.getElementById("reposition-mode-btn");
 
-export function initLayoutOptions() {
+export function initLayoutOptions() 
+{
     const layoutCheckboxes = document.querySelectorAll("#view-layout .check-row input");
 
     layoutCheckboxes.forEach(checkbox => {
         checkbox.addEventListener("change", () => {
             chrome.storage.local.set({ [checkbox.id]: checkbox.checked });
         });
+    });
+
+    chrome.storage.local.get("preview-theater", result => {
+        document.getElementById("preview-theater").checked = result["preview-theater"] === true;
     });
 
     repositionBtn.addEventListener("click", () => {

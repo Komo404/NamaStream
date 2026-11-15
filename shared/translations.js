@@ -27,6 +27,8 @@ export const translations = {
     "search_bar": "Search Bar",
     "vertical_twitch": "Vertical Twitch Bar",
     "resizable_bars": "Resizable Bars",
+    "preview_theater": "Theater preview",
+    "close_preview": "Close preview",
     "done_repositioning": "Done Repositioning",
     "reposition_bars": "Reposition Bars",
     "reset_pos": "Reset pos"
@@ -58,6 +60,8 @@ export const translations = {
     "search_bar": "Barra de Pesquisa",
     "vertical_twitch": "Twitch vertical",
     "resizable_bars": "Barras redimensionáveis",
+    "preview_theater": "Preview em modo teatro",
+    "close_preview": "Fechar preview",
     "done_repositioning": "Terminar Reposicionamento",
     "reposition_bars": "Reposicionar barras",
     "reset_pos": "Resetar Posições"
@@ -89,6 +93,8 @@ export const translations = {
     "search_bar": "検索バー",
     "vertical_twitch": "Twitchバーを縦に表示",
     "resizable_bars": "バーのサイズ変更",
+    "preview_theater": "シアターモードでプレビュー",
+    "close_preview": "プレビューを閉じる",
     "done_repositioning": "配置の変更を完了",
     "reposition_bars": "バーの配置を変更",
     "reset_pos": "位置をリセット"

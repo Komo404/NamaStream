@@ -14,6 +14,7 @@ export const DEFAULT_SETTINGS = {
     "repositionMode": false,
 
     "bars-visible": true,
+    "preview-theater": false,
     "barPositions": {},
     "barSizes": {}
 };

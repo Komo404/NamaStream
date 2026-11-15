@@ -1,6 +1,7 @@
 ## Changelog
 
-### 1.35.0
+### 1.35.0 beta
+- Added optional theater mode for YouTube hover previews
 - Fixed the weather settings close button layout, restored manual locations with zero coordinates, and prevented outdated weather responses from replacing newer selections
 - Added Japanese language support
 - Added the M shortcut to toggle stream bars, persisted across tabs, and skipped stream requests while all bars are hidden.
