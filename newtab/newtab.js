@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const firefox_wordmark = firefox_el?.querySelector(".wordmark");
 
     const search_bar = document.getElementById("search-bar")?.querySelector("input");
+    const weatherInfo = document.getElementById("weatherinfo");
     const barsSection = document.getElementById("bars");
 
     const youtubeContainer = document.getElementById("youtube")?.querySelector(".scroll-container");
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Read settings from storage and apply them to the UI
     const settings = await getCachedSettings();
-    applySettings(settings, { firefox_logo, firefox_wordmark, search_bar, barsSection, bars: barsList });
+    applySettings(settings, { firefox_logo, firefox_wordmark, search_bar, weatherInfo, barsSection, bars: barsList });
 
     configureStreamPreviews(settings);
 
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (area !== "local") return;
 
         getCachedSettings().then(settings => {
-            applySettings(settings, { firefox_logo, firefox_wordmark, search_bar, barsSection, bars: barsList });
+            applySettings(settings, { firefox_logo, firefox_wordmark, search_bar, weatherInfo, barsSection, bars: barsList });
             configureStreamPreviews(settings);
         });
 

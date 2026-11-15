@@ -4,6 +4,7 @@ export const DEFAULT_SETTINGS = {
     "layout-firefox-logo": true,
     "layout-firefox-wordmark": true,
     "layout-search-bar": true,
+    "weather-widget": true,
 
     "youtube-streams": true,
     "agenda": true,
@@ -28,7 +29,7 @@ export async function getCachedSettings() {
 }
 
 export function applySettings(settings, domRefs = {}) {
-    const { firefox_logo, firefox_wordmark, search_bar, barsSection, bars } = domRefs;
+    const { firefox_logo, firefox_wordmark, search_bar, weatherInfo, barsSection, bars } = domRefs;
 
     if (bars && bars.length) {
         if (bars[0]) bars[0].classList.toggle('hidden', !settings['youtube-streams']);
@@ -39,6 +40,7 @@ export function applySettings(settings, domRefs = {}) {
     if (firefox_logo) firefox_logo.classList.toggle('hidden', !settings['layout-firefox-logo']);
     if (firefox_wordmark) firefox_wordmark.classList.toggle('hidden', !settings['layout-firefox-wordmark']);
     if (search_bar) search_bar.classList.toggle('hidden', !settings['layout-search-bar']);
+    if (weatherInfo) weatherInfo.classList.toggle('hidden', !settings['weather-widget']);
 
     if (barsSection) barsSection.classList.toggle('hidden', !settings['bars-visible']);
     if (barsSection) barsSection.classList.toggle('twitch-vertical', settings['layout-vertical-twitch']);

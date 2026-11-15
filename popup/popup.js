@@ -13,12 +13,13 @@ export async function initPopup()
     renderPage("view-default");
     applyTranslations();
 
-    chrome.storage.local.get(["layout-vertical-twitch", "layout-firefox-logo", "layout-firefox-wordmark", "layout-search-bar", "layout-resizable-bar"], (result) => {
+    chrome.storage.local.get(["layout-vertical-twitch", "layout-firefox-logo", "layout-firefox-wordmark", "layout-search-bar", "layout-resizable-bar", "weather-widget"], (result) => {
         document.getElementById("layout-firefox-logo").checked = result["layout-firefox-logo"] ?? true;
         document.getElementById("layout-firefox-wordmark").checked = result["layout-firefox-wordmark"] ?? true;
         document.getElementById("layout-search-bar").checked = result["layout-search-bar"] ?? true;
         document.getElementById("layout-vertical-twitch").checked = result["layout-vertical-twitch"] || false;
         document.getElementById("layout-resizable-bar").checked = result["layout-resizable-bar"] || false;
+        document.getElementById("weather-widget").checked = result["weather-widget"] ?? true;
     });
 
     await initPopupChannels();

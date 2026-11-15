@@ -1,6 +1,7 @@
 ## Changelog
 
 ### 1.36.0 beta
+- Added a remove button to the Weather widget on popup
 - Fixed Chrome weather icon's visibility
 - Added simultaneous YouTube streams in theater mode
 
