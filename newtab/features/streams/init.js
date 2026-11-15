@@ -24,6 +24,8 @@ export async function initStreams(domRefs) // domRefs: youtube, agenda e twitch
 
         const youtubeResponse = [...youtubeResponse1, ...youtubeResponse2];
 
+        await saveChannelCatalog(youtubeResponse, twitchResponse);
+
         const data = await filterStreams(youtubeResponse, twitchResponse);
         renderStreams(domRefs.youtube, domRefs.agenda, domRefs.twitch, data.HappeningStreams, data.ScheduledStreams, data.TwitchStreams);
 
@@ -32,6 +34,26 @@ export async function initStreams(domRefs) // domRefs: youtube, agenda e twitch
     } catch (err) {
         console.error("Erro ao carregar streams:", err);
     }
+}
+
+async function saveChannelCatalog(youtubeVideos, twitchStreams)
+{
+    const { channelCatalog = { youtube: [], twitch: [] } } = await chrome.storage.local.get("channelCatalog");
+    const youtube = new Map(channelCatalog.youtube.map(channel => [channel.channelId, channel]));
+    const twitch = new Map(channelCatalog.twitch.map(channel => [channel.channelId, channel]));
+
+    youtubeVideos.forEach(video => {
+        if (video.channelId && video.channel) {
+            youtube.set(video.channelId, { name: video.channel, channelId: video.channelId });
+        }
+    });
+    twitchStreams.forEach(stream => {
+        if (stream.login) {
+            twitch.set(stream.login, { name: stream.name || stream.login, channelId: stream.login });
+        }
+    });
+
+    await chrome.storage.local.set({ channelCatalog: { youtube: [...youtube.values()], twitch: [...twitch.values()] } });
 }
 
 async function parseResponse(response) 

@@ -1,6 +1,7 @@
 ## Changelog
 
-### 1.36.0 beta
+### 1.36.0
+- Automatized the popup channel list with channels discovered from backend responses
 - Added a remove button to the Weather widget on popup
 - Fixed Chrome weather icon's visibility
 - Added simultaneous YouTube streams in theater mode

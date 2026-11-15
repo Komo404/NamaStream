@@ -1,12 +1,5 @@
-export const youtubeIDs = [
-    // Insert the channels here (same as backend)
-    {name: "nak", channelId: "UCfGiBuBA0H7FNbtP4LMP8-g"}
-];
-
-export const twitchChannels = [
-    // Insert the channels here (same as backend)
-    {name: "robcdee", channelId: "robcdee"}
-];
+export let youtubeIDs = [];
+export let twitchChannels = [];
 
 export let disabledChannels = new Set();
 export let pinnedChannels = [];
@@ -14,7 +7,9 @@ export let pinnedChannels = [];
 export async function loadChannelState() 
 {
     return new Promise((resolve) => {
-        chrome.storage.local.get(["disabledChannels", "pinnedChannels"], (result) => {
+        chrome.storage.local.get(["disabledChannels", "pinnedChannels", "channelCatalog"], (result) => {
+            youtubeIDs = result.channelCatalog?.youtube ?? [];
+            twitchChannels = result.channelCatalog?.twitch ?? [];
             if (result.disabledChannels) {
                 disabledChannels = new Set(result.disabledChannels);
             }

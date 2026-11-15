@@ -1,5 +1,5 @@
 //
-// Handler do server. Hono é o framework para facilitar fazer o server 
+// Server handler for the API endpoints
 //
 
 import { Hono } from 'hono';
@@ -14,11 +14,12 @@ import { refreshTwitchCache } from './cache.js';
 const server = new Hono();
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*', // faz com que permita qualquer origem
+  'Access-Control-Allow-Origin': '*', // Allow requests from any origin
   'Access-Control-Allow-Methods': 'GET,OPTIONS',
   'Access-Control-Allow-Headers': '*',
 };
 
+// First endpoint: Returns YouTube data from cache or refreshes it if outdated
 server.get('/v3/youtube/1', async (context) => {
   try {
     const cache = await returnYoutubeData(context.env);
@@ -40,6 +41,7 @@ server.get('/v3/youtube/1', async (context) => {
   }
 });
 
+// Second endpoint: Same as the first one but with different channels (for double channel capacity)
 server.get('/v3/youtube/2', async (context) => {
   try {
     const cache = await returnYoutubeData2(context.env);
@@ -120,16 +122,4 @@ server.options('*', (c) => { // Handle CORS preflight requests
 
 export default {
   fetch: server.fetch,
-
-  // scheduled: async (controller, env, ctx) => {
-  //   console.log('Cron disparou!');
-
-  //   await Promise.all([
-  //     refreshYoutubeCache(env.YOUTUBE_API_KEY, env),
-  //     refreshYoutubeCache2(env.YOUTUBE_API_KEY, env),
-  //     refreshTwitchCache(env.Client_Id, env.Client_Secret, env),
-  //   ]);
-
-  //   console.log('Refresh de cache solicitado pra todos os endpoints');
-  // }
 };

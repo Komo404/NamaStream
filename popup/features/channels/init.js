@@ -7,4 +7,11 @@ export async function initPopupChannels()
 
     renderChannelGrid(youtubeIDs, "yt-channel-grid");
     renderChannelGrid(twitchChannels, "twitch-channel-grid");
+
+    chrome.storage.onChanged.addListener((changes, area) => {
+        if (area !== "local" || !changes.channelCatalog) return;
+        const catalog = changes.channelCatalog.newValue;
+        renderChannelGrid(catalog?.youtube ?? [], "yt-channel-grid");
+        renderChannelGrid(catalog?.twitch ?? [], "twitch-channel-grid");
+    });
 }
