@@ -23,21 +23,25 @@ The stream endpoints return normalized JSON arrays. The Wallhaven endpoint retur
 
 Stream data is stored in `STREAMS_KV`. The YouTube endpoints refresh data older than 3 minutes; Twitch refreshes data older than 90 seconds. Refresh happens in the request that encounters stale data, so that request waits for the upstream APIs. Scheduled refresh is currently disabled.
 
-## YouTube channel groups
+## Channel configuration
 
-The GitHub template keeps personal channel lists out of commits. Copy `src/channels_example.js` to `src/channels_local.js`, then export both arrays from the copied file:
+The GitHub template keeps personal channel lists out of commits. Copy `src/channels_example.js` to `src/channels_local.js`, then add your channels to the three exported arrays:
 
 ```js
 export const channelIDs = [
-  // { name: "example", channelId: "UC..." },
+  { name: "example", channelId: "UC..." },
 ];
 
 export const channelIDs2 = [
-  // Optional second group for /v3/youtube/2
+  // Optional second group for /v3/youtube/2; keep this array even if empty
+];
+
+export const twitchChannels = [
+  { name: "example" }, // Twitch username, not display name
 ];
 ```
 
-`channels_local.js` is ignored by Git and must be present when running or deploying the Worker. The extension currently calls both YouTube endpoints, so leave the second list empty if you only need one group; otherwise requests to the second endpoint still occur, even with no channels in that group. The second endpoint is useful for distributing a large channel list across separate Worker requests. Both services currently fetch up to three recent videos per channel.
+`channels_local.js` is ignored by Git and must be present when running or deploying the Worker. The extension calls both YouTube endpoints, even when `channelIDs2` is empty. Use the second list to distribute a large channel list across separate Worker requests. Both endpoints currently fetch up to three recent videos per channel.
 
 ## Requirements
 
@@ -81,8 +85,7 @@ npm run deploy
 API/
 |-- src/index.js             # Hono routes
 |-- src/cache.js             # KV reads, writes, and refresh helpers
-|-- src/channels_example.js  # Template for personal YouTube channel groups
-|-- src/channels_local.js    # Local channel groups (ignored by Git)
+|-- src/channels_example.js  # Template for YouTube and Twitch channel lists
 |-- src/youtubeService.js    # YouTube channel-group fetch and normalization
 |-- src/youtubeService2.js   # Second YouTube channel-group fetch
 |-- src/twitchService.js     # Twitch authentication and stream fetch

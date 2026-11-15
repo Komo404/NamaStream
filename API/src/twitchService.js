@@ -2,10 +2,7 @@
 // Pega token, faz fetch, recupera token quando acaba.
 //
 
-const channels = [
-    // Add your channels here (Twitch username)
-    {name: "robcdee"}
-]
+import { twitchChannels } from './channels_local.js';
 
 let token = null;
 
@@ -43,7 +40,7 @@ export async function getTwitchStreams(Client_Id, Client_Secret, retry = true)
 {
     const accessToken = await getToken(Client_Id, Client_Secret);
 
-    const users = channels.map(channel => `user_login=${channel.name}`).join("&");
+    const users = twitchChannels.map(channel => `user_login=${channel.name}`).join("&");
 
     const res = await fetch(
         `https://api.twitch.tv/helix/streams?${users}`,

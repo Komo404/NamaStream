@@ -63,53 +63,6 @@
 
 ---
 
-## Development
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) 18+
-- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/): `npm install -g wrangler`
-- A Google Cloud project with YouTube Data API v3 enabled
-- A Cloudflare account (free tier)
-- A Twitch developer account
-
-### Setup
-
-```bash
-git clone https://github.com/komo404/NamaStream.git
-cd NamaStream
-
-cd API
-npm install
-
-# Store secrets: never committed to the repo
-wrangler secret put YOUTUBE_API_KEY
-wrangler secret put Client_Id
-wrangler secret put Client_Secret
-```
-
-### Running locally
-
-```bash
-# Start the Worker dev server (the scheduled refresh is disabled)
-cd API
-npm run dev
-```
-
-To load the extension in Firefox:
-1. Open `about:debugging`
-2. Click **This Firefox** → **Load Temporary Add-on**
-3. Select `manifest.json` from the root of this repo
-
-To load the extension in Chrome:
-1. Open `chrome://extensions`
-2. Enable **Developer mode**
-3. Click **Load unpacked** and select the root of this repo
-
-Both browsers use the same `manifest.json` and extension files.
-
----
-
 ## Third-party services
 
 ### YouTube Data API
@@ -125,6 +78,7 @@ Wallpaper search uses [Wallhaven](https://wallhaven.cc/). Weather data uses [Ope
 
 ## Documentation
 
+- [Setup Guide](./docs/GUIDE.md)
 - [API documentation](./API/README.md)
 - [Privacy Policy](./PRIVACY.md)
 - [Changelog](./CHANGELOG.md)
@@ -136,12 +90,3 @@ The SVGs in `assets/weather/` are copied from Firefox's weather resources and ar
 
 ---
 *NamaStream is an independent project not affiliated with or endorsed by YouTube, Twitch, Google, or OpenStreetMap.*
-
-
-## Channel setup
-
-- Copy `API/src/channels_example.js` to `API/src/channels_local.js` and export `channelIDs` and `channelIDs2` from that file. The second list is optional; use it when you want to split a large YouTube channel list across both endpoints.
-- Add YouTube channels to either list using their channel IDs. The extension calls both endpoints, so leave `channelIDs2` empty when using only the first group.
-- Set Twitch usernames in `API/src/twitchService.js`.
-- Add your channels to the popup list if you want per-channel enable, disable, and pin controls.
-- Deploy your Worker and update the URLs and host permissions
