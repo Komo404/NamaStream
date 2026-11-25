@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "NamaStream",
   "author": "Komo404",
-  "version": "1.36.0",
+  "version": "1.36.1",
   "description": "Adds a stream dashboard to new tabs with live streams, schedules, weather, and custom wallpapers.",
   "icons": {
     "32": "icon.png",
@@ -13,9 +13,10 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "NamaStream@komo404.dev",
+      "strict_min_version": "140.0",
       "data_collection_permissions": {
         "required": ["none"],
-        "optional": []
+        "optional": ["locationInfo"]
       }
     }
   },
@@ -30,7 +31,10 @@
   },
 
   "permissions": [
-    "storage",
+    "storage"
+  ],
+
+  "optional_permissions": [
     "geolocation"
   ],
 

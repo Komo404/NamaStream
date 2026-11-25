@@ -12,8 +12,8 @@ export async function initWeatherFeature() {
     if (saved.weatherMode === "manual" && saved.lat != null && saved.lon != null && saved.name != null) {
         const res = await fetchWeatherFromCoords(saved.lat, saved.lon, saved.name);
         if (selection === currentSelection && res) renderWeather(res.weatherData, res.geoData, res.manualName);
-    } else {
-        const res = await fetchWeather();
+    } else if (saved.weatherMode === "auto") {
+        const res = await fetchWeather(selection);
         if (selection === currentSelection && res) renderWeather(res.weatherData, res.geoData, res.manualName || null);
     }
 }

@@ -84,9 +84,10 @@ main {
 }
 
 #weatherinfo.settings-open {
+    width: 240px;
     max-width: 240px;
     align-items: flex-start;
-    min-height: 160px;
+    min-height: 180px;
 }
 
 #weatherText {
@@ -274,6 +275,17 @@ main {
 
 #weatherSettingsActions button:hover {
     background: rgba(255, 255, 255, 0.16);
+}
+
+#weatherLocationNotice,
+#weatherLocationStatus {
+    font-size: 11px;
+    line-height: 1.35;
+}
+
+#weatherAuto:disabled {
+    cursor: wait;
+    opacity: 0.65;
 }
 
 /* #endregion */

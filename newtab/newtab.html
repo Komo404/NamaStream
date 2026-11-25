@@ -40,8 +40,10 @@
                         
                         <div id="weatherSettingsActions">
                             <button id="changeCity"> Save </button>
-                            <button id="weatherAuto"> Auto </button>
+                            <button id="weatherAuto" aria-describedby="weatherLocationNotice" hidden>Use my location</button>
                         </div>
+                        <small id="weatherLocationNotice" hidden>Automatic weather shares your coordinates with Open-Meteo and Nominatim.</small>
+                        <small id="weatherLocationStatus" role="status"></small>
                     </div>
 
                     <button id="weatherMenu"> ⋮ </button>

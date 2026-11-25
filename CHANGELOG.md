@@ -1,7 +1,10 @@
 ## Changelog
 
-### 1.36.0
+### 1.36.1
 - Automatized the popup channel list with channels discovered from backend responses
+- Made location access optional in Firefox. On Chrome, choose a city manually.
+
+### 1.36.0
 - Added a remove button to the Weather widget on popup
 - Fixed Chrome weather icon's visibility
 - Added simultaneous YouTube streams in theater mode
