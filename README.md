@@ -21,16 +21,14 @@
 - **Twitch panel**: channels currently live on Twitch
 - **Weather widget**: Current conditions, feels-like, humidity and wind speed based on your location; supports manual city search
 - **Custom new tab**: Replaces the new tab in Firefox and Chrome with a full-screen dashboard and custom wallpaper support
-- **Popup settings**: Pin or disable individual channels, toggle bars, change layout, reposition bars freely, resize bars
+- **Popup settings**: Pin or disable discovered channels, toggle widgets and bars, and adjust the layout
+- **YouTube previews**: Hover over thumbnails or use theater mode to watch up to four live streams together
 
-### Architecture highlights
+### How it is built
 
-- Backend on **Cloudflare Workers** (Hono + JavaScript), with separately cached YouTube endpoints and a Twitch endpoint
-- Parallel YouTube requests use separate endpoints to stay within per-request Workers Free limits and improve concurrency for large channel lists
-- Data Normalization to reduce CPU Time (~30ms -> ~7ms)
-- Integration with 5+ different APIs
-- Client-side stream filtering and sorting, reducing server processing
-- JS Modularization -> Every feature has its own file
+The extension uses only HTML, CSS and JavaScript modules. A Cloudflare Worker fetches YouTube and Twitch data and caches stream responses in KV. The dashboard handles filtering, layout, and browser storage
+
+Channel lists are configured in the backend. The popup learns channels from stream responses, so the frontend does not need a second manual list
 
 ---
 
@@ -52,7 +50,7 @@
 - [x] Chrome support (v1.35)
 - [x] Configurable hover-preview behavior (v1.35)
 
-## Stacks
+## Technology
 
 | Layer | Tech |
 |---|---|
@@ -78,8 +76,9 @@ Wallpaper search uses [Wallhaven](https://wallhaven.cc/). Weather data uses [Ope
 
 ## Documentation
 
-- [Setup Guide](./docs/GUIDE.md)
-- [API documentation](./API/README.md)
+- [Getting started](./docs/guide.md): load the extension and use its controls
+- [How NamaStream works](./docs/architecture.md): Architecture, extension flow and saved settings
+- [Backend setup and API](./API/README.md): configure channels, credentials, storage, and deployment
 - [Privacy Policy](./PRIVACY.md)
 - [Changelog](./CHANGELOG.md)
 - [License](./LICENSE)
